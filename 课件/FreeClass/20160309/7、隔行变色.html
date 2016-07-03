@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+            font-size: 14px;
+        }
+
+        ul, li {
+            list-style: none;
+        }
+
+        #news {
+            margin: 20px auto;
+            padding: 20px;
+            width: 350px;
+            border: 1px dashed darkgreen;
+        }
+
+        #news li {
+            height: 35px;
+            line-height: 35px;
+        }
+
+        .c0 {
+            background: burlywood;
+        }
+
+        .c1 {
+            background: cadetblue;
+        }
+
+    </style>
+</head>
+<body>
+<ul id="news">
+    <li>高房价之下，买房仍是聪明人会做的事</li>
+    <li>高房价之下，买房仍是聪明人会做的事</li>
+    <li>高房价之下，买房仍是聪明人会做的事</li>
+    <li>高房价之下，买房仍是聪明人会做的事</li>
+    <li>高房价之下，买房仍是聪明人会做的事</li>
+    <li>高房价之下，买房仍是聪明人会做的事</li>
+    <li>高房价之下，买房仍是聪明人会做的事</li>
+    <li>高房价之下，买房仍是聪明人会做的事</li>
+    <li>高房价之下，买房仍是聪明人会做的事</li>
+    <li>高房价之下，买房仍是聪明人会做的事</li>
+</ul>
+<!--实现奇数行和偶数行变颜色,只需要让#news下的li中的奇数行class='c0'，让偶数行的class='c1'-->
+<script type="text/javascript">
+    //document.getElementsByTagName ->document是当前获取的上下文,限定获取的范围是整个文档中获取 ->在整个文档中,我们通过标签名来获取一组元素集合(HTMLCollection)
+
+    //HTMLCollection
+    //->以数组作为索引,索引从0开始逐级递增,索引0代表第一项,索引n代表第n+1项...
+    //->有一个叫做length的属性存储的是元素集合的有多少项
+    //->和数组特别相似但是不是数组,我们把它称之为"类数组"
+
+    var news = document.getElementById("news");
+    var newsList = news.getElementsByTagName("li");//->获取#news下的所有的li
+
+    for (var i = 0; i < newsList.length; i++) {
+        newsList[i].className = "c" + i % 2;
+    }
+
+    //    for (var i = 0; i < newsList.length; i++) {
+    //        var curLi = newsList[i];
+    //        curLi.className = (i % 2 === 0 ? "c0" : "c1");
+    //    }
+
+
+    //    for (var i = 0; i < newsList.length; i++) {
+    //        var curLi = newsList[i];
+    //        i % 2 === 0 ? curLi.className = "c0" : curLi.className = "c1";
+    //    }
+
+
+    //    for (var i = 0; i < newsList.length; i++) {
+    //        //->i=0 第一个LI newsList[0]  i是偶数 奇数行
+    //        //->i=1 第二个LI newsList[1]  i是奇数 偶数行
+    //        //->i=2 第三个LI newsList[2]  i是偶数 奇数行
+    //
+    //        //->1)var curLi = newsList[i];//->每一次循环获取当前要操作的那个LI
+    //        //->2)i为奇数代表的是偶数行 i为偶数代表的是奇数行 ->如果想知道当前是奇数还是偶数行,只需要知道i本次存储的那个值是奇数还是偶数
+    //        //->3)i%2 (i膜2) 让i存储的值除以2获取余数,余数为0代表i是偶数,余数为1代表i是奇数
+    //
+    //        var curLi = newsList[i];
+    //        if (i % 2 === 0) {
+    //            curLi.className = "c0";
+    //        } else {
+    //            curLi.className = "c1";
+    //        }
+    //    }
+
+
+</script>
+</body>
+</html>

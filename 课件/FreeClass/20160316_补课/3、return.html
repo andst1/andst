@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>珠峰培训</title>
+</head>
+<body>
+<script type="text/javascript">
+    //    function sum(num1, num2) {
+    //        var total = null;
+    //        total = num1 + num2;//->300
+    //
+    //        return total;//->return就是当前函数提供给我们的出口,因为不提供出口的话,闭包的机制导致了在函数体的外面无法获取里面total的值,如果想在外面用total的值,只需要通过return 把total的值返回给外面即可-->"返回值机制"
+    //        //->外面想用哪个值,我们就把哪个值返回 ->return total; 并不是把变量返回给外面，而是把变量存储的值返回给外面 <==>return 300;
+    //    }
+    //    var total = sum(100, 200);//->首先把函数sum执行,然后把sum执行的返回值(看sum执行的返回结果,只需要看sum中是否存在return,有return,return后面返回的值是什么,那么函数的返回值就是啥; 如果sum中没有return,那么默认的返回值是undefined；)赋值给外面的变量total
+
+    //console.log(total);//->Uncaught ReferenceError: total is not defined ->total这个变量没有定义  ==>函数执行的时候,首先会形成一个私有的作用域,保护里面的内容不受外界的干扰(闭包),导致了在函数体中定义的变量total,在函数体的外面不能直接的获取到
+
+
+    //    function fn() {
+    //        var total = 300;
+    //    }
+    //    var total = fn();//->把fn这个函数执行的返回结果赋值给total ->fn这个函数中没有return,所以默认的返回值是undefined  ->total=undefined
+    //    console.log(total);
+
+
+    //    function fn() {
+    //        var total = 2;
+    //        return total * 10;//->return 20;
+    //    }
+    //    console.log(fn);//->输出当前函数本身
+    //    console.log(fn());//->把fn执行的返回结果输出 ->20
+
+
+    function fn() {
+        var total = 2;
+        return;//->在函数体中return下面的代码都不会执行了 ->"终止函数体中代码执行的作用"
+        console.log(1);
+    }
+    console.log(fn());//->undefined
+</script>
+</body>
+</html>

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>珠峰培训</title>
+</head>
+<body>
+<script type="text/javascript">
+    //object->{}、[]、/^$/、时间
+    //->每一个对象都是由属性名和属性值组成的
+
+    var ary = [12, 23, 34, 45];
+
+    //->数组也是对象,我们看到的是它的属性值,属性名是数字0~3
+    //->0存储的是第一项的值 1存储的是第二项的值 ... 我们把代表第几项的这个数字的属性名叫做数组的“索引”
+    //->length:4 数组的长度
+
+    //    ary[0]
+    //    ary[1]
+    //    ary.length
+    //    ary["length"]
+
+    //->数组中有一个叫做length的属性,这个属性是浏览器天生就给数组增加的(不是我们自己编写的属性)，这个属性属于当前数组“不可枚举的属性”
+    for (var i = 0; i < ary.length; i++) {
+        console.log(ary[i]);
+    }
+
+    for (var key in ary) {
+        //->for in循环是用来遍历一个对象中属性名和属性值的,但是对于当前对象不可枚举的属性我们通过它是遍历不到的; 例如:我们无法遍历到ary.length这个属性
+        console.log(ary[key]);
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<script type="text/javascript">
+    //1、boolean:true/false
+    //! 先把值转换为布尔类型,然后在取反
+    //!! 把值转换为布尔类型 ==>> Boolean()
+
+    //2、把其他的数据类型转换为布尔类型
+    //->只有五个值(""、0、NaN、null、undefined)转换为布尔类型会变为false,其余的都是true
+
+    //3、都什么情况下会把其他的值转换为布尔类型?
+    //!、!!、Boolean
+    //    if(1){//->如果条件判断中只有一个单独的值,那它的任意是：首先把这个值转换为布尔类型,然后看是真还是假,是的真的话条件成立,反之条件不成立
+    //
+    //    }
+
+
+    //4、字符串:在JS中用''/""包起来的都是字符串
+    var str = "welcome to zhu feng~~";
+    //->每一个字符串都是由零到多个字符组成,每一个字符都有一个自己的位置
+    //->第一个字符w它的位置是第一位,我们用一个数字0代替,同理e的位置用1代替,我们把代替位置的数字叫做索引
+    //->一个字符串中的字符是以数字作为索引,索引从0开始,索引0代表第一个字符...
+    console.log(str[0]);
+    console.log(str[1]);
+    console.log(str.length);//->获取字符串一共有多少个字符 21
+    console.log(str[str.length - 1]);//->获取最后一个字符
+</script>
+</body>
+</html>

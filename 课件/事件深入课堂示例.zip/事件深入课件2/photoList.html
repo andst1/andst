@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        ul{ list-style:none; width:480px; height:660px; margin:50px auto; padding:0; background:lightBlue; position:relative; }
+        ul li{ width:150px; height:150px; float:left; overflow:hidden; background:pink; cursor:move; -webkit-user-select:none; -moz-user-select:none; margin:5px;}
+        ul li img{ border:none;}
+    </style>
+</head>
+<body>
+<ul id="photolist">
+    <li><img width="150" height="150" src="img/1.png"></li>
+    <li><img width="150" height="150" src="img/2.png"></li>
+    <li><img width="150" height="150" src="img/3.png"></li>
+    <li><img width="150" height="150" src="img/4.png"></li>
+    <li><img width="150" height="150" src="img/5.png"></li>
+    <li><img width="150" height="150" src="img/6.png"></li>
+    <li><img width="150" height="150" src="img/7.png"></li>
+    <li><img width="150" height="150" src="img/8.png"></li>
+    <li><img width="150" height="150" src="img/9.png"></li>
+    <li><img width="150" height="150" src="img/10.png"></li>
+    <li><img width="150" height="150" src="img/11.png"></li>
+    <li><img width="150" height="150" src="img/12.png"></li>
+
+</ul>
+</body>
+</html>
+<script src="JS/event.js"></script>
+<script src="JS/drag.js"></script>
+<script src="JS/tween.js"></script>
+<script>
+var oLis=document.getElementsByTagName("li");
+    for(var i=oLis.length-1;i>=0;i--){
+        var oLi=oLis.item(i);
+        oLi.l=oLi.offsetLeft;
+       oLi.t=oLi.offsetTop;
+        oLi.style.top=oLi.t+"px";
+        oLi.style.left=oLi.l+"px";
+        oLi.style.position="absolute";
+        oLi.style.margin=0;
+        on(oLi,"mousedown",down);
+        on(oLi,"selfDragStart",increaseZIndex);
+
+        on(oLi,"selfDragEnd",restore);
+
+        on(oLi,"selfDragEnd", function () {
+            animate(this,{left:this.l,top:this.t},600,4)
+        });
+    }
+var zIndex=1;
+function increaseZIndex(){
+    this.style.zIndex=++zIndex;
+    this.style.background="darkBlue";
+}
+function restore(){
+    this.style.background="";
+}
+
+</script>

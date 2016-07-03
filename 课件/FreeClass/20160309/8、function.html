@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<script type="text/javascript">
+    //1、函数由两部分组成
+    //->创建一个函数：让当前函数变为具备某个功能的方法
+    //->执行函数：应用函数的这个功能实现我们的需求
+
+    //    function sum() {
+    //        //函数体:实现这个功能的代码
+    //        console.log(1 + 1);
+    //    }
+    //    sum();
+    //    sum();
+    //    sum();
+
+    //2、形参:我要实现一个功能,但是创建函数的时候,一些原材料(一些值)不知道,这样的话我们给这个函数提供对应的入口,方便执行的时候把值传递给我
+    function sum(num1, num2) {//->num1/num2是形参"变量":当前函数提供的两个入口
+        console.log(num1 + num2);
+    }
+//    sum(12, 23);
+//    sum(1, 2);
+//    sum(100, 200);
+    sum(100);//->定义了形参,但是执行的时候如果没有给传递中的话,默认形参的值是undefined ->num2=undefined num1=100  ->100+undefined=NaN
+</script>
+</body>
+</html>

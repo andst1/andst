@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        ul{ list-style:none; width:480px; height:660px; margin:50px auto; padding:0; background:lightBlue; position:relative; }
+        ul li{ width:150px; height:150px; float:left; overflow:hidden; background:pink; cursor:move; -webkit-user-select:none; -moz-user-select:none; margin:5px;}
+        ul li img{ border:none;}
+    </style>
+</head>
+<body>
+<ul id="photolist">
+    <li><img width="150" height="150" src="img/1.png"></li>
+    <li><img width="150" height="150" src="img/2.png"></li>
+    <li><img width="150" height="150" src="img/3.png"></li>
+    <li><img width="150" height="150" src="img/4.png"></li>
+    <li><img width="150" height="150" src="img/5.png"></li>
+    <li><img width="150" height="150" src="img/6.png"></li>
+    <li><img width="150" height="150" src="img/7.png"></li>
+    <li><img width="150" height="150" src="img/8.png"></li>
+    <li><img width="150" height="150" src="img/9.png"></li>
+    <li><img width="150" height="150" src="img/10.png"></li>
+    <li><img width="150" height="150" src="img/11.png"></li>
+    <li><img width="150" height="150" src="img/12.png"></li>
+
+</ul>
+</body>
+</html>
+<script src="JS/event.js"></script>
+<script src="JS/drag.js"></script>
+<script src="JS/tween.js"></script>
+<script>
+var oLis=document.getElementsByTagName("li");
+    for(var i=oLis.length-1;i>=0;i--){
+        var oLi=oLis.item(i);
+        oLi.l=oLi.offsetLeft;
+       oLi.t=oLi.offsetTop;
+        oLi.style.top=oLi.t+"px";
+        oLi.style.left=oLi.l+"px";
+        oLi.style.position="absolute";
+        oLi.style.margin=0;
+        on(oLi,"mousedown",down);
+        on(oLi,"selfDragStart",increaseZIndex);
+
+        on(oLi,"selfDragEnd",restore);
+        on(oLi,"selfDragging",getHitedEle)
+        on(oLi,"selfDragEnd", changePosition);
+
+    }
+var zIndex=1;
+function increaseZIndex(){
+    this.style.zIndex=++zIndex;
+    this.style.background="darkBlue";
+}
+function restore(){
+    this.style.background="";
+}
+    function isHited(r,b){//碰撞检测方法
+        if(r.offsetLeft+r.offsetWidth<b.offsetLeft
+                ||r.offsetTop+r.offsetHeight<b.offsetTop
+                ||r.offsetLeft>b.offsetLeft+b.offsetWidth
+                ||r.offsetTop>b.offsetTop+b.offsetHeight){
+            return false;
+        }else{
+            return true;
+        }
+    }
+
+    function getHitedEle(){//得到碰撞的元素
+        this;
+        this["aHitedEle"]=[];
+        for(var i=0;i<oLis.length;i++){
+            var oLi=oLis[i];
+            if(this==oLi)continue;
+            oLi.style.backgroundColor="";
+            if(isHited(this,oLi)){
+                oLi.style.backgroundColor="orange";
+                this["aHitedEle"].push(oLi);
+            }
+        }
+    }
+    function changePosition(){//交换位置
+        var a=this["aHitedEle"];
+        if(a&& a.length){
+            var oMin={}//定义一个对象，用来保存和当前拖拽元素距离最小的那个元素
+            for(var i=0;i< a.length;i++){
+                var oLi=a[i];
+                if(!oMin.ele){//第一次的时候，假定第一个Li距离最短
+                    //算出和当前被拖拽元素的距离
+                    oMin.min=Math.sqrt(Math.pow(this.offsetLeft-oLi.offsetLeft,2)+Math.pow(this.offsetTop-oLi.offsetTop,2))   ;
+                    oMin.ele=oLi;
+                }else{//如果不是第一次检测，则进行比较
+                   var distance= Math.sqrt(Math.pow(this.offsetLeft-oLi.offsetLeft,2)+Math.pow(this.offsetTop-oLi.offsetTop,2));
+                    //如果oMin.min比当前这个距离大，则说明原来保存的不是最小的，则用当值值更新oMin
+                    if(oMin.min>distance){
+                        oMin.min=distance;
+                        oMin.ele=oLi;
+                    }
+                }
+
+            }
+            oMin.ele;
+            //以下是交换位置
+            //oMin.ele.style.left=this.l+"px";
+           //oMin.ele.style.top=this.t+"px";
+
+          //  this.style.left=oMin.ele.l+"px";
+           // this.style.top=oMin.ele.t+"px";
+            var ele=oMin.ele;
+            animate(ele,{left:this.l,top:this.t},600,4);
+            animate(this,{left:ele.l,top:ele.t},600,3);
+            var objTemp={l:this.l,t:this.t};
+            this.l=oMin.ele.l;
+            this.t=oMin.ele.t;
+            oMin.ele.l=objTemp.l;
+            oMin.ele.t=objTemp.t;
+
+            this["aHitedEle"]=null;
+
+        }else{
+            animate(this,{left:this.l,top:this.t},500,3);
+        }
+    }
+
+    var a=[4,9,3,1,7,6]
+    var min=a[0];
+    for(var i=1;i< a.length;i++){
+        if(min>a[i]){
+            min=a[i]
+        }
+    }
+    min;
+</script>

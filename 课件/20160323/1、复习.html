@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<script type="text/javascript">
+    //1、JS中检测数据类型的四种方式
+    //->typeof:用来检测数据类型的运算符  ->typeof value
+    //->局限性:
+    //1)typeof null ==>"object"
+    //2)typeof不能具体的区分是数组还是正则,因为只要是对象数据类型,返回的都是"object"
+    //->typeof typeof typeof [12,23] ==>"string"
+
+    //->instanceof:用来检测某一个实例是否属于这个类
+    //->constructor:构造函数
+    //->Object.prototype.toString.call([value])
+
+
+    //2、有一个div:<div class=”w” name=”h” id=”div1”></div>我想获取"这一个"div你有几种解决办法(不考虑兼容)
+    //    document.getElementById("div1");
+    //    document.getElementsByTagName("div")[0]
+    //    document.getElementsByClassName("w")[0]
+    //    document.getElementsByName("h")[0]
+    //    document.querySelector("#div1")
+    //    document.querySelector(".w")
+    //    document.querySelector("[name='h']")
+    //    document.querySelector("div")
+    //    document.querySelectorAll(".w")[0]
+    //    document.querySelectorAll("[name='h']")[0]
+    //    document.querySelectorAll("div")[0]
+
+    //3、clientWidth/clientHeight都属于JS盒子模型中的属性,除了这俩个以外还有11个(clientTop、clientLeft、offsetParent、offsetWidth、offsetHeight、offsetTop、offsetLeft、scrollWidth、scrollHeight、scrollTop、scrollLeft)
+    //->所有关于获取浏览器的盒子模型属性值的话,都需要document.documentElement.xxx||document.body.xxx才可以兼容所有浏览器
+    //    document.documentElement.clientWidth||document.body.clientWidth
+    //    document.documentElement.clientHeight||document.body.clientHeight
+
+    //4、获取上一个"哥哥元素"节点 ->previousElementSibling(在IE6~8下不兼容)
+    //    function prev(curEle) {
+    //        //->判断当前的浏览器是否会兼容previousElementSibling,兼容的话直接用它,就不用自己写循环了
+    //        if (curEle.previousElementSibling) {
+    //            return curEle.previousElementSibling;
+    //        }
+    //        //->首先获取当前元素的上一个哥哥节点,判断是否为元素节点,如果是元素节点就直接的返回即可;如果不是元素节点,则继续基于当前的基础找上一个哥哥节点...
+    //        //->由于不确定具体要找多少次,所有我们使用while循环
+    //        var pre = curEle.previousSibling;
+    //        while (pre && pre.nodeType != 1) {
+    //            pre = pre.previousSibling;
+    //        }
+    //        return pre;
+    //    }
+
+    //5、
+    //1)删除数组最后一项:ary.pop() ary.length-- ary.splice(ary.length-1,1)
+    //2)在数组末尾增加一项:ary.push("珠峰") ary[ary.length]="珠峰" ary.splice(ary.length,0,"珠峰")
+    //3)数组的克隆：ary.slice()/sry.slice(0)  ary.concat() ary.splice(0)
+    //4)实现找到第n项到第m项的内容[n,m]: ary.slice(n-1,m-1+1) ==>ary.slice(n-1,m)
+
+
+    //6、
+    //    []==false ->true 两边都转换为数字
+    //    ![]==false ->true 先计算的是![],相当于把数组转换为布尔然后取反->false  ==>false==false 最后结果是true
+    //    []==![] ->true  先计算的是![]==>false  ==>[]==false ->true
+
+</script>
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        #div1 {
+            /*使用CSS让当前的盒子在整个屏幕中间的位置*/
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            margin: -100px 0 0 -100px;
+
+            width: 200px;
+            height: 200px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+<div id="div1" style="background-color: red;"></div>
+
+<script type="text/javascript">
+    //红色->绿色->蓝色->黑色->红色->绿色...
+
+    var oDiv = document.getElementById("div1");
+    oDiv.onclick = function () {
+        //->每一次点击的时候,首先获取当前元素的背景颜色
+        var bg = oDiv.style.backgroundColor;//->oDiv.style只能获取写在当前元素行内上的样式值
+
+        //->根据当前的背景颜色进行判断,让其变为不同的背景颜色
+        if (bg === "red") {
+            oDiv.style.backgroundColor = "green";
+        } else if (bg === "green") {
+            oDiv.style.backgroundColor = "blue";
+        } else if (bg === "blue") {
+            oDiv.style.backgroundColor = "black";
+        } else {
+            oDiv.style.backgroundColor = "red";
+        }
+    };
+</script>
+</body>
+</html>

@@ -1,0 +1,134 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+</head>
+
+<body>
+<div id="div1" style="width:100px; height:100px; background:red;">我是DIV1</div>
+</body>
+</html>
+<script>
+function fn1(){
+	console.log(this.innerHTML+":fn1")
+}
+function fn2(){
+	console.log(this.innerHTML+":fn2")
+}
+function fn3(){
+	console.log(this.innerHTML+":fn3")
+}
+var n=0;
+function fn4(){
+	n++;
+	if(n==2){
+		off(this,"click",fn1);
+		off(this,"click",fn2);
+		off(this,"click",fn3);
+		off(this,"click",fn4);
+		//[1,2,3,4,5,6,7,8,9,10,11];
+		//i=5
+		//[5,6,7,8,9,10,11]
+		
+	}
+	console.log(this.innerHTML+":fn4");
+}
+function fn5(){
+	console.log(this.innerHTML+":fn5")
+}
+function fn6(){
+	console.log(this.innerHTML+":fn6")
+}
+function fn7(){
+	console.log(this.innerHTML+":fn7")
+}function fn8(){
+	console.log(this.innerHTML+":fn8")
+}function fn9(){
+	console.log(this.innerHTML+":fn9")
+}
+function fn10(){
+	console.log(this.innerHTML+":fn10")
+}
+function fn11(){
+	console.log(this.innerHTML+":fn11")
+}
+function on(ele,type,handler){
+	
+	if(ele.addEventListener){
+		ele.addEventListener(type,handler,false);
+	}else if(ele.attachEvent){
+		//ele.attachEvent("on"+type,handler);
+		if(!ele["IEevent"+type]){//判断这个数组是否存在
+			ele["IEevent"+type]=[];
+		}
+		var a=ele["IEevent"+type];
+		for(var i=0;i<a.length;i++){
+			if(a[i]==handler){//避免数组里有重复的方法
+				return;	
+			}
+		}
+		a.push(handler);
+		
+		if(!ele["attachEvent"+type]){
+			ele["attachEvent"+type]=function(){run.call(ele)}
+	//真正绑定的是run(改造之后的)，并且只能在同一事件上绑定一次
+			ele.attachEvent("on"+type,ele["attachEvent"+type]);
+		}
+	}
+}
+
+function run(){
+	
+	var e=window.event;
+	var type=e.type;
+	var a=this["IEevent"+type];
+	e.target=e.srcElement;
+	e.preventDefault=function(){
+		e.returnValue=false;
+	}
+	e.stopPropagation=function(){e.cancelBubble=true}
+	e.pageX=(document.documentElement.scrollLeft||document.body.scrollLeft)+e.clientX;
+	e.pageY=(document.documentElement.scrollTop||document.body.scrollTop)+e.clientY;
+	for(var i=0;i<a.length;){
+		if(a[i]===null){
+			a.splice(i,1);
+			//[1,2,3,4,5,6,7,8,9,10,11];
+			//[2,3,4,5,6,7,8,9,10,11];
+			
+		}else{
+			a[i].call(this,e);
+			i++;
+		}
+	}
+}
+
+function off(ele,type,handler){
+	if(ele.removeEventListener){
+		ele.removeEventListener(type,handler,false)
+	}else if(ele.detachEvent){
+		var a=ele["IEevent"+type];
+		if(a){
+			for(var i=0;i<a.length;i++){
+				if(a[i]==handler){
+					//a.splice(i,1);	
+					a[i]=null;
+				}
+			}
+		}
+	}	
+}
+var ele=document.getElementById('div1');
+on(ele,"click",fn1);
+on(ele,"click",fn2);
+on(ele,"click",fn3);
+on(ele,"click",fn4);
+on(ele,"click",fn5);
+on(ele,"click",fn6);
+on(ele,"click",fn7);
+on(ele,"click",fn8);
+on(ele,"click",fn9);
+on(ele,"click",fn10);
+on(ele,"click",fn11);
+
+</script>

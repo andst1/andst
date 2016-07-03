@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>珠峰培训-快速排序</title>
+</head>
+<body>
+<script type="text/javascript">
+    //快速排序的思想:
+    //1)我们首先在数组中找一个"基准点"(一般把基准点选择为数组中间的这一项)
+    //->Math.floor(ary.length/2)  例如：一共9项,获取的结果是4(第五项,正好是中间项);一共10项,获取的结果是5(第六项),也接近中间项;
+    //2)拿基准点和数组中的其他项进行比较,比基准点小的放在左边,比基准点大的放在右边
+
+    //3)以后的每一遍都重复上述的两个操作,直到当前这一边只有一项的时候停止处理...
+
+    function quickSort(ary) {
+        //->如果传递过来的数组只有一项了,不需要再按照快速的思想拆了,直接把这个一项的数组返回即可
+        if (ary.length <= 1) {
+            return ary;
+        }
+
+        var pointIndex = Math.floor(ary.length / 2);//->找到基准点的索引
+        var pointValue = ary.splice(pointIndex, 1)[0];//->通过基准点的索引在原来的数组中,删除这一项,并把基准点这一项的值获取到
+
+        //->拿基准点的值和原来的数组中每一项进行比较,把小于基准点的放在左边,把大于基准点的放在右边
+        var left = [];
+        var right = [];
+        for (var i = 0; i < ary.length; i++) {
+            var cur = ary[i];
+            cur < pointValue ? left.push(cur) : right.push(cur);
+        }
+
+        return quickSort(left).concat([pointValue], quickSort(right));
+    }
+
+    var ary = [12, 13, 23, 14, 20, 26, 34, 13, 16];
+    var res = quickSort(ary);
+    console.log(res);
+</script>
+</body>
+</html>

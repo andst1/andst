@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>面向对象的拖拽</title>
+    <style type="text/css">
+        div{width: 100px;
+            height: 100px;
+            position: absolute;
+            background: red;
+            cursor: move;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+        #div2{
+            top:120px;
+            left: 100px;
+            background: yellow;
+        }
+        #div3{
+            top:60px;
+            left: 170px;
+            background: green;
+        }
+    </style>
+</head>
+<body>
+<div id="div1"><img src="logo.png" width="100" height="100"> </div>
+<div id="div2"></div>
+<div id="div3"></div>
+</body>
+</html>
+<script src="JS/event.js"></script>
+<script>
+    //面向对象风格的拖拽，和闭包风格对比
+    function Drag(ele){//实例的初始化：构造函数
+        //this只是这个类的实例
+        //被拖拽的元素被保存在这个实例上的一个属性中
+        this.x=null;
+        this.y=null;
+        this.mx=null;
+        this.my=null;
+        this.ele=ele;//把被拖拽的元素保存在这个实例的ele属性上
+        /*
+        这个方法定义在事件库里
+        function processThis(obj,fn){
+            return function (e) {
+                fn.call(obj,e)
+            }
+        }
+        */
+        this.DOWN=processThis(this,this.down);//this.__proto__.down;
+        this.MOVE=processThis(this,this.move);
+        this.UP=processThis(this,this.up);
+        on(this.ele,"mousedown",this.DOWN);
+        //实例：是一个Drag类的实例，是个对象
+        //每个对象类型的实例，都是一个存值数据结构（承体）
+    }
+    Drag.prototype.down=function(e){//动作的初始化，拖拽的准备工作
+        this.x=this.ele.offsetLeft;
+        this.y=this.ele.offsetTop;
+        this.mx= e.pageX;
+        this.my= e.pageY;
+        if(this.ele.setCapture){
+            this.ele.setCapture();
+            on(this.ele,"mousemove",this.MOVE);
+            on(this.ele,"mouseup",this.UP);
+        }else{
+            on(document,"mousemove",this.MOVE);
+            on(document,"mouseup",this.UP);
+        }
+    }
+    Drag.prototype.move= function (e) {
+        this.ele.style.left=this.x+(e.pageX-this.mx)+"px";
+        this.ele.style.top=this.y+(e.pageY-this.my)+"px";
+    }
+    Drag.prototype.up=function(e){
+        if(this.ele.releaseCapture){
+            this.ele.releaseCapture();
+            off(this.ele,"mousemove",this.MOVE);
+            off(this.ele,"mouseup",this.UP);
+
+        }else{
+            off(document,"mousemove",this.MOVE);
+            off(document,"mouseup",this.UP)
+        }
+    }
+    //每一个单独行为，是依赖一个主体，上下文
+    //每一个主体是一个类的实例：
+    //类是一种统筹管理的方式
+
+   var obj1=new Drag(div1);
+    var obj2=new Drag(div2)
+   // ele===this;
+
+</script>

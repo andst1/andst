@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<script type="text/javascript">
+    //1、DOM:document object model 文档对象模型
+    //->DOM就是用来描述整个页面节点和节点之间关系的一个族谱图
+
+
+    //2、节点 Node
+    //->一个HTML页面中的所有东西都是节点，每一个节点都有自己独有的一些属性值，我们在JS中可以通过属性值的不一样来区分是什么节点
+
+    //1)元素节点(元素标签)
+    //->nodeType:1
+    //->nodeName:大写的标签名
+    //->nodeValue:null
+
+    //2)文本节点(文字内容) 在标准浏览器中也会把空格、换行等都当做文本节点
+    //->nodeType:3
+    //->nodeName:#text
+    //->nodeValue:文字(文本)内容
+
+    //3)注释节点(注释内容)
+    //->nodeType:8
+    //->nodeName:#comment
+    //->nodeValue:注释的内容
+
+    //4)document
+    //->nodeType:9
+    //->nodeName:#document
+    //->nodeValue:null
+</script>
+</body>
+</html>

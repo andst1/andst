@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        #div1 {
+            margin: 20px auto;
+            width: 100px;
+            height: 100px;
+            border: 1px solid green;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+<div id="div1" style="width: 100px;"></div>
+
+<script type="text/javascript">
+    var oDiv = document.getElementById("div1");
+    //->typeof oDiv =>"object"
+
+
+    oDiv.onclick = function () {
+        //oDiv.style.backgroundColor = "red";
+
+//        var bgStyle = oDiv.style;
+//        bgStyle.backgroundColor = "red";
+
+        var bg = oDiv.style.backgroundColor;
+        bg = "red";
+    };
+
+    //oDiv.style.xxx都是在操作(获取/设置)它的行内样式
+    //oDiv.style.backgroundColor = "red";//->设置行内样式中的背景颜色为红色
+    //console.log(oDiv.style.width);//->虽然在样式表中设置了width的值,但是由于没有写在行内样式上,所以通过oDiv.style.xxx是获取不到样式值的
+</script>
+</body>
+</html>

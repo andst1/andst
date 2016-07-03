@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+            font-family: cursive;
+            font-size: 14px;
+        }
+
+        input {
+            display: inline-block;
+            margin: 20px;
+            width: 80px;
+            height: 30px;
+            cursor: pointer;
+        }
+
+        html, body {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body>
+<input type="button" value="红色"/>
+<input type="button" value="黄色"/>
+<input type="button" value="粉色"/>
+<input type="button" value="绿色"/>
+<input type="button" value="蓝色"/>
+
+<script type="text/javascript">
+    var ary = ["red", "orange", "pink", "green", "blue"];
+    var btnList = document.getElementsByTagName("input");
+    for (var i = 0; i < btnList.length; i++) {
+        btnList[i].setAttribute("zhuFeng", i);
+        btnList[i].onclick = function () {
+            document.body.style.backgroundColor = ary[this.getAttribute("zhuFeng")];
+        }
+    }
+
+    //->每隔一秒钟我们的背景颜色自动改变一次
+    var count = -1;
+    var timer = window.setInterval(function () {
+        if (count === 4) {
+            count = -1;
+        }
+        count++;
+        document.body.style.backgroundColor = ary[count];
+    }, 1000);
+    //第一次 count++ ->0  red
+    //第二次 count++ ->1  orange
+    //第三次 count++ ->2  pink
+    //第四次 count++ ->3  green
+    //第五次 count++ ->4  blue
+    //第六次 count===4成立 count=-1 count++ ->0  "red"
+</script>
+
+
+</body>
+</html>

@@ -1,0 +1,42 @@
+1、GIT应用于团队协作开发项目的时候,每个人负责自己的一部分,对于前端来说,我们每个人都要写"xxx.html"、"xxx.css"、"xxx.js"一个或者多个这样的文件
+
+   GIT其实就是一个文件仓库,我们每一个人把自己写的放在仓库中,如果别人也要用,需要到仓库中把你写的下载下来进行修改,修改完成后在传到仓库中
+   GIT管理文件的机制非常的完善：每一个人提交一次都会自动的记录一次历史记录,当出现问题的时候,我们可以快速的查看历史版本内容,参考还原到某个版本(版本管理)
+
+   [svn]和GIT的作用是一样的,但是从性能和深入管理上来讲都不如git,所以大公司都在使用git进行管理
+
+
+2、gitHub:一个网站,是一个使用git进行管理的开源仓库(网站),jQuery、angular.js、sea.js、bootstrap、Zepto.js...这些目前常用到的前端类库的源码都在gitHub上单独建立了自己的仓库并且托管
+   ->https://github.com/
+
+
+3、注册giHub账号,我们的邮箱必须需要验证
+
+4、创建一个新的仓库
+
+
+5、以git方式管理我们在gitHub上创建的仓库
+  1)把gitHub仓库先下载到本地
+
+
+6、关于本地的代码和远程仓库的连接问题
+
+  1)通过 $ git clone 远程地址  之后,我们本地的文件就已经和远程仓库保持连接了
+
+  $ git remote -v
+  origin(我们本地和远程仓库连接的那个名字)  https://github.com/zhouxiaotian1990/myFirstRepository.git(远程仓库的地址) (fetch)
+  origin  https://github.com/zhouxiaotian1990/myFirstRepository.git (push)
+
+  $ git push origin master ->把本地的代码以master这个分支(主分支)推送到 origin这个名字所关联的那个远程地址仓库里
+
+
+  2、我们可以自己手动增加连接
+
+
+
+
+
+
+
+
+

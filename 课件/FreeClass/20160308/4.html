@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+
+        div {
+            width: 100px;
+            height: 100px;
+            margin: 50px;
+            padding: 6px;
+            border: 10px solid green;
+            background: lightblue;
+        }
+    </style>
+</head>
+<body>
+<div id="div1"></div>
+
+<script type="text/javascript">
+    //1、JS中常用的几种输出方式
+    //1)alert:在浏览器弹出一个框,在框中有我们要输出的内容(不管你想要输出什么内容,最后输出的都是一个字符串内容)
+    //alert(1); ->最后在浏览器弹出的结果不是一个数字1,变为了字符串"1" ->alert都是把我们要输出的内容转化为字符串然后在输出
+
+    //2)confirm:在浏览器弹出一个提示确认框
+    //confirm("确定要删除吗?")
+
+    //3)console.log:在控制台输出日志
+    //->console.dir:它只是比.log输出的内容更加详细一些
+    //->console.table:它能把我们需要查看的数据在控制台中以一个表格的形式展示出来
+
+    //建议大家回去安装的浏览器是"谷歌浏览器"，安装的编写代码的工具是"webStorm"
+    //->所有的浏览器打开控制台都是按F12这个键
+    //Elements:包含了我们当前页面渲染完成后的HTML结构和每一个标签的样式信息以及一个清晰明了的盒子模型信息->我们通常在Elements中进行页面中元素样式的调整
+    //Console:JS中通过console.log输出的内容都可以在这里进行查看,我们还可以在控制台编写一些测试的JS脚本代码;
+    //Network:我们当前页面加载的所有资源(CSS、JS、图片、请求数据的接口、音视频...)都可以在这里查看到，并且可以看到每一个资源加载的时间，这样就可以对网站进行初步的优化了；以后如果想和后台进行数据交互，那么这个页卡下展示出来的内容都是我们开发过程中的重要参考依据;
+    //Sources:存放了当前网站所有的CSS/JS的源文件；通过这个页卡，我们还可以实现页面中BUG的调试；
+    //Resources:存放了网站所有的本地存储的信息
+    //后面的其他页卡都是对网站进行深入优化必备的工具
+    //...
+
+    var oDiv = document.getElementById("div1");
+    oDiv.onclick = function () {
+        alert(1);
+    };
+
+    //    2016年珠峰培训交流群 190987627
+    //    ->珠峰培训JavaScript免费基础课下载地址
+    //    ->JavaScript免费基础课下载地址 http://pan.baidu.com/s/1pJuVLX5
+</script>
+</body>
+</html>

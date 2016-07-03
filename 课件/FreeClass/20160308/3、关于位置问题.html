@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        #div1 {
+            width: 100px;
+            height: 100px;
+            background: red;
+        }
+    </style>
+
+    <script type="text/javascript">
+        //        var oDiv = document.getElementById("div1");
+        //        alert(oDiv);//->null
+
+        //需求:就想把JS放在上面,但是还想把元素标签获取到
+        //->原生JS:window.onload 当前页面中的所有资源(文字、图片、音视频...)都加载完成的时候
+        window.onload = function () {
+            var oDiv = document.getElementById("div1");
+            alert(oDiv);//->"[object HTMLDivElement]"
+        };
+        //->使用jQuery: $(document).ready(function(){}) / $(function(){}) 只要当前页面中的HTML结构加载完成,就会执行对应的操作
+
+        //思考题：window.onload和$(document).ready的区别都有哪些?(正式课第五周我们将会从最深层的原理来讲解区别)
+    </script>
+</head>
+<body>
+<div id="div1"></div>
+
+<script type="text/javascript">
+    //var oDiv = document.getElementById("div1");
+    //alert(oDiv);//->"[object HTMLDivElement]"
+</script>
+
+<script type="text/javascript" src="test.js">
+    //思考题：回去查看一下,在script标签上,除了src属性以外还有哪些其它的属性,作用分别是什么? async、defer...
+</script>
+
+</body>
+</html>
+<!--
+  在一个页面中,我们可以把JS放在任何的位置,但是我们通常都把它放在BODY的末尾位置?
+  ->因为JS大部分情况下都是用来操作页面中的元素标签的,一个页面是从上到下依次加载,我们想操作标签,那么需要先加载标签,然后才能把它获取到,并且给予相关的交互操作
+-->

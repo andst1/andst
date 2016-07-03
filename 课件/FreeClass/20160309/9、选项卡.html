@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        ul, li {
+            list-style: none;
+        }
+
+        #box {
+            margin: 10px auto;
+            width: 500px;
+        }
+
+        #box ul {
+            position: relative;
+            top: 1px;
+            overflow: hidden; /*清除子元素的浮动对自己的影响*/
+        }
+
+        #box ul li {
+            float: left;
+            margin-right: 10px;
+            width: 100px;
+            height: 30px;
+            line-height: 30px;
+            text-align: center;
+            border: 1px solid red;
+            cursor: pointer;
+        }
+
+        #box ul li.select {
+            background: lightgreen;
+            border-bottom: 1px solid lightgreen;
+        }
+
+        #box div {
+            display: none;
+            height: 150px;
+            line-height: 30px;
+            text-align: center;
+            border: 1px solid red;
+        }
+
+        #box div.select {
+            display: block;
+            background: lightgreen;
+        }
+    </style>
+</head>
+<body>
+<div id="box">
+    <ul>
+        <li class="select">CSS</li>
+        <li>全栈</li>
+        <li>移动端</li>
+    </ul>
+    <div class="select">HTML+CSS:随便一个网站静态布局都能做了</div>
+    <div>全栈:流行的框架和思想会了,原生JS也熟练了,自己可以只用JS写一套整站开发(前后台都自己做)</div>
+    <div>移动端:不管是什么移动端页面,要做多响应,都可以做,不仅如此而且从性能优化上,不亚于BAT的优化</div>
+</div>
+<!--
+   需求:
+   1)刚开始有三个LI,下面对应了三个DIV,默认只有第一个LI和它对应的DIV有选中的样式,其余的都没有
+   2)点击哪一个LI,那么当前的LI和它对应内容的DIV有选中样式(class='select')，同时让其余的两个LI和对应DIV的选中样式清除掉(class='')
+-->
+<script type="text/javascript">
+    //1、想要操作哪些元素,就先把它们获取到:我们要操作的元素是#box下的三个LI和三个DIV
+    var box = document.getElementById("box");
+    var oLis = box.getElementsByTagName("li");
+    var oDivs = box.getElementsByTagName("div");
+
+    //2、实现选项卡切换的功能:点击的是哪一个让哪一个有选中的样式,其他的都没有选中的样式 ==>也可以不管点击的是哪一个,先让三个都没有,然后在让当前点击的那一个有选中的样式
+    function tabChange(n) {//->n:当前用户点击的这个LI的索引
+        //->先让三个都没有选中的样式
+        for (var i = 0; i < oLis.length; i++) {
+            oLis[i].className = null;
+            oDivs[i].className = null;
+        }
+
+        //->在让当前点击的那个有选中的样式:当前创建这个方法的时候还不知道用户要点击的是哪一个LI,我们定义一个形参n,代表当前用户点击的这个LI的索引,当执行这个方法的时候,告诉我对应的索引,就可以实现功能了
+        oLis[n].className = "select";
+        oDivs[n].className = "select";
+    }
+
+    //3、给每一个LI绑定单击事件,当点击的时候执行上面创建的那个tabChange方法,并且把当前点击元素对应的索引传递给这个方法
+    oLis[0].onclick = function () {
+        tabChange(0);
+    };
+    oLis[1].onclick = function () {
+        tabChange(1);
+    };
+    oLis[2].onclick = function () {
+        tabChange(2);
+    };
+</script>
+</body>
+</html>

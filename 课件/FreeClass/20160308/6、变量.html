@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<script type="text/javascript">
+    //变量:一个可变的量,它其实就是一个名字,它的作用是用来存储值的,但是一个变量存储的值可以发生改变
+    //常量:就是一个具体的固定的值,不会改变的 13、"珠峰"
+    //var 名字=值;//->JS中的定义变量并且赋值
+
+    //    var num = 13;
+    //    num = 12;
+    //    console.log(num);
+    //JS中的变量没有什么实际的意义,只是用来存储值和代表值的,例如:num=12就是在给num这个变量存储值,console.log(num)就是把num代表的值12在控制台输出
+
+    //    var num1 = 12;
+    //    var num2 = num1;//->把num1这个变量存储的值赋值给num2这个变量，"="在JS中的作用是赋值，“=”左边是变量名字，“=”右边是给这个变量赋的值
+
+
+    //2、JS中的变量有一个特点：它是松散类型的 ->因为只需要通过var来定义变量,变量存储的值可以是任何的数据类型的
+    //    var num = 12;
+    //    num = "zhufeng";
+    //    num = true;
+    //    num = null;
+    //    num = {name: "肖广华", age: 49};
+    //    num = [12, 23, 34];
+    //    num = /^[+-]?(\d|([1-9]\d+))(\.\d+)?%/;
+    //    num = function () {
+    //
+    //    };
+
+    //[后台]
+    //int num=12;
+    //String num="zhufeng";
+
+
+    //3、JS中到底都有哪些数据类型
+    //->基本数据类型/值类型
+    //number(数字)、string(字符串)、boolean(布尔 true/false)、null、undefined
+
+    //->引用数据类型
+    //object(对象):{}对象、[]数组、/^$/正则  Tue Mar 08 2016 16:17:10 GMT+0800时间
+    //function(函数)
+
+
+    //4、浏览器是如何的检测这些数据类型的(JS中数据类型检测的方式)
+
+    //->typeof:用来检测数据类型的运算符
+    //语法:
+    //->typeof value;
+
+    //返回值:
+    //->首先是一个字符串,其次字符串中的内容才包含了对应的数据类型信息
+    //->"number"、"string"、"boolean"、"undefined"、"object"、"function"
+
+    //局限性:
+    //->typeof null; 是"object",但是null不是对象数据类型的
+    //->不能具体检测出是数组还是正则还是对象,因为typeof检测对象数据类型那几个细分的值,返回的结果都是“object”
+
+    //    console.log(typeof 12);//->"number"
+    //    var str = "珠峰培训";
+    //    console.log(typeof str);//->"string"
+
+
+    //->instanceof:用来检测某一个实例是否属于这个类
+    //->constructor:利用原型构造器的方式检测数据类型
+    //->Object.prototype.toString.call():借用内置类Object原型上的toString方法实现数据类型检测
+
+
+    //腾讯面试题:
+    //console.log(typeof typeof typeof [12, 23]); //->"string"
+    //typeof [12, 23] ->"object"
+    //typeof "object" ->"string"
+    //typeof "string" ->"string"
+    //->由于typeof返回的结果首先是一个字符串,所以当连续出现两个及以上typeof同时检测的时候,最后的结果都是"string"
+</script>
+</body>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+            font-size: 24px;
+            -webkit-user-select: none;
+        }
+
+        #timeDiv {
+            margin: 20px auto;
+            width: 80%;
+            height: 50px;
+            line-height: 50px;
+            text-align: center;
+            border: 5px solid red;
+            letter-spacing: 3px;
+            cursor: pointer;
+
+            background: lightcyan;
+            background: -webkit-linear-gradient(bottom right, yellowgreen, powderblue, azure, cornsilk);
+            background: -moz-linear-gradient(bottom right, yellowgreen, powderblue, azure, cornsilk);
+            background: -ms-linear-gradient(bottom right, yellowgreen, powderblue, azure, cornsilk);
+            background: -o-linear-gradient(bottom right, yellowgreen, powderblue, azure, cornsilk);
+            background: linear-gradient(bottom right, yellowgreen, powderblue, azure, cornsilk);
+        }
+    </style>
+</head>
+<body>
+<div id="timeDiv"></div>
+
+<script type="text/javascript">
+    var timeDiv = document.getElementById("timeDiv");
+
+    function addZero(value) {
+        return value < 10 ? "0" + value : value;
+    }
+    function getTime() {
+        var time = new Date();
+        var year = time.getFullYear();
+        var month = time.getMonth() + 1;
+        var day = time.getDate();
+        var hour = time.getHours();
+        var minute = time.getMinutes();
+        var second = time.getSeconds();
+
+        var week = time.getDay();
+        var area = "日一二三四五六";
+
+        timeDiv.innerHTML = year + "年" + addZero(month) + "月" + addZero(day) + "日 星期" + area[week] + " " + addZero(hour) + "时" + addZero(minute) + "分" + addZero(second) + "秒";
+    }
+    getTime();
+
+
+    window.setInterval(getTime, 1000);//->每隔1000ms都会重新执行getTime
+</script>
+</body>
+</html>

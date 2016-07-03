@@ -1,0 +1,116 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+<style type="text/css">
+div{ position:absolute; left:0; top:0; background:green; height:100px; width:100px; cursor:move; -webkit-user-select:none; -moz-user-select:none;}
+
+</style>
+</head>
+
+<body>
+<div >div1</div>
+<div >div2</div>
+<div >div3</div>
+<div >div4</div>
+<div >div5</div>
+<div >div6</div>
+<div >div7</div>
+<div >div8</div>
+<div >div9</div>
+<div >div10</div>
+
+</body>
+</html>
+
+<script src="event.js"></script>
+<script>
+
+function processThis(obj,fn){
+	
+	return function(e){fn.call(obj,e)}	
+}
+function Drag(ele){
+	//this;ele
+	//ele是属于Drag这个函数的变量
+	//this.ele是当前实例（或当前上下文中的）的属性
+	this.ele=ele;
+	this.x=null;
+	this.y=null;
+	this.mx=null;
+	this.my=null;//把这些初始值都保存在当前实例的属性上，而不是保存在DOM对象
+	//this
+	//on(this.ele,"mousedown",this.down);
+	//on(this.ele,"mousedown",processThis(this,down));
+	//down,this.down
+	//var that=this;
+	//on(this.ele,"mousedown",function(e){that.down.call(that,e)})
+	//on(this.ele,"mousedown",function(e){this.down.call(this,e)})//这样是不行的
+	this.DOWN=processThis(this,this.down);
+	this.MOVE=processThis(this,this.move);
+	this.UP=processThis(this,this.up);
+	on(this.ele,"mousedown",this.DOWN);
+	
+}
+
+Drag.prototype.down=function(e){
+	this.x=this.ele.offsetLeft;
+	this.y=this.ele.offsetTop;
+	this.mx=e.pageX;
+	this.my=e.pageY;
+	if(this.ele.setCapture){
+		this.ele.setCapture();
+		on(this.ele,"mousemove",this.MOVE);
+		on(this.ele,"mouseup",this.UP)
+	}else{
+		on(document,"mousemove",this.MOVE);
+		on(document,"mouseup",this.UP);
+	}	
+}
+Drag.prototype.move=function(e){
+	if(this.range){
+		var obj=this.range;
+		if(typeof obj.right =="number"&&(e.pageX-this.mx+this.x>=obj.right)){
+			this.ele.style.left=right+"px";
+		}else if(typeof obj.left =="number"&&(e.pageX-this.mx+this.x<=obj.left)){
+			this.ele.style.left=obj.left+"px";
+		}else{
+			this.ele.style.left=e.pageX-this.mx+this.x+"px";
+		}
+		
+		if(typeof obj.top =="number"&&(e.pageY-this.my+this.y<=obj.top)){
+			this.ele.style.top=obj.top+"px";
+		}else if(typeof obj.bottom =="number"&&(e.pageY-this.my+this.y>=obj.bottom)){
+			this.ele.style.top=obj.bottom+"px";
+		}else{
+			this.ele.style.top=e.pageY-this.my+this.y+"px";
+		}
+		
+	}else{
+		this.ele.style.left=e.pageX-this.mx+this.x+"px";
+		this.ele.style.top=e.pageY-this.my+this.y+"px";
+	}	
+}
+Drag.prototype.up=function(){
+	if(this.ele.releaseCapture){
+		off(this.ele,"mousemove",this.MOVE);
+		off(this.ele,"mouseup",this.UP);
+		this.ele.releaseCapture();
+	}else{
+		off(document,"mousemove",this.MOVE);
+		off(document,"mouseup",this.UP)
+	}
+}
+Drag.prototype.limit=function(oRange){
+	this.range=oRange;
+	//{left:100,right:800,top:50,bottom:500}
+	
+}
+var eles=document.getElementsByTagName('div');
+var a=[];
+for(var i=0;i<eles.length;i++){
+	a.push(new Drag(eles.item(i)));
+}
+a[9].limit({left:100,right:200,top:100,bottom:600});
+</script>

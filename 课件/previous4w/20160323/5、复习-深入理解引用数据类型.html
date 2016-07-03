@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<script type="text/javascript">
+    var ary = [1, 2, 3, 4];
+    function fn(ary) {
+        ary[0] = 0;
+        ary = [0];
+        ary[0] = 100;
+        return ary;
+    }
+    var res = fn(ary);//->首先把函数fn执行(执行的时候还给函数传递了参数的值->这里相当于把全局变量ary的值传递给函数,因为函数执行传递进来的永远是一个值,写的是一个变量,也是把变量的值传递给函数),并且把fn执行的返回结果赋值给res ==>fn(xxxfff000),因为ary存储的就是一个地址
+    console.log(ary);
+    console.log(res);
+
+
+    //->函数执行传递进来的永远是一个值
+    //    var a = 12;
+    //    fn(a);//==>fn(12)
+    //    fn(1 + 2);//==>fn(3)
+    //    fn(a > 10 ? 12 : 0);//==>先把三元运算符的结果计算出来,再当做值传递给函数 ==>fn(12)
+</script>
+</body>
+</html>

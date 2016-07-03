@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        input {
+            display: inline-block;
+            margin: 20px;
+            width: 200px;
+            height: 35px;
+            line-height: 35px;
+            text-align: center;
+            cursor: pointer;
+            border: 1px solid red;
+            background: lightsteelblue;
+        }
+
+
+    </style>
+</head>
+<body>
+<input type="button" value="按钮"/>
+<input type="button" value="按钮"/>
+<input type="button" value="按钮"/>
+
+<script type="text/javascript">
+    var inpList = document.getElementsByTagName("input");
+    //    for (var i = 0; i < inpList.length; i++) {
+    //        inpList[i].onclick = function () {
+    //            alert(i);
+    //        }
+    //    }
+    //->为啥不行：
+    //i=0 第一次循环
+    //    inpList[0].onclick = function () {
+    //        alert(i);
+    //    }//->首先开辟一个新的内存空间,地址为xxxfff000;把函数体中的代码当做“字符串”存储到内存空间中,此时空间中存储的是"alert(i)",此时i只是一个字符而已;在把地址赋值给inpList[0].onclick=xxxfff000
+
+    //i=1 第二次循环
+    //    inpList[1].onclick =xxxfff111 ->function () {
+    //        "alert(i);"
+    //    };
+
+    //i=2 第三次循环
+    //    inpList[2].onclick =xxxfff222 ->function () {
+    //        "alert(i);"
+    //    };
+
+    //i=3循环结束
+
+    //->当我在页面中手动点击第二个按钮,执行xxxfff111对应的那个方法，首先让事先存储的字符串变为代码执行 alert(i); ->遇到了变量i,但是此时i的值已经是3了
+
+
+    //->如何解决
+    //1)自定义属性
+    //    for (var i = 0; i < inpList.length; i++) {
+    //        inpList[i].zhuFeng = i;
+    //        inpList[i].onclick = function () {
+    //            alert(this.zhuFeng);
+    //        }
+    //    }
+
+    //2)应用闭包的原理
+    //    for (var i = 0; i < inpList.length; i++) {
+    //        ~function (i) {
+    //            inpList[i].onclick = function () {
+    //                alert(i);
+    //            }
+    //        }(i);
+    //    }
+
+    for (var i = 0; i < inpList.length; i++) {
+        inpList[i].onclick = (function (i) {
+            return function () {
+                alert(i);
+            }
+        })(i);
+    }
+
+
+    //    var age = "haha";
+    //
+    //    var personInfo = {};
+    //    personInfo.name = "珠峰培训";
+    //    personInfo["age"] = 10;
+    //    //personInfo[age]=10;//->首先获取age这个变量的值"haha",给personInfo增加一个叫做"haha"的属性名 personInfo["haha"]=10;
+    //    personInfo.teacher = "耿老";
+    //
+    //    for (var key in personInfo) {
+    //        //console.log(personInfo.key);//->把属性名叫做key对应的属性值输出 ->undefined
+    //        console.log(key, personInfo[key]);
+    //    }
+
+
+    //    function sum() {
+    //        var total = null;//->total=0;  0/null的区别:张俊男和张文洁同学去种树,俊男比较的懒,挖了坑,啥也没种->0  文洁比他还懒,连坑都没挖->null
+    //        for (var i = 0; i < arguments.length; i++) {
+    //            var cur = Number(arguments[i]);
+    //            if (!isNaN(cur)) {
+    //                total += cur;
+    //            }
+    //        }
+    //        return total;
+    //    }
+    //    var res = sum(12, 23, "36", "zhufeng");
+    //    console.log(res);//->71
+
+
+    //    var a = b = c = d = [1, 2, 3, 4, 5];
+    //    //->首先开辟一个新的内存空间,浏览器为其分配一个地址xxxfff000
+    //    //->分别把数组中的每一项的值存储到这个空间中
+    //    //->把地址分别的赋值给a、b、c、d
+    //    a=xxxfff000
+    //    b=xxxfff000
+    //    c=xxxfff000
+    //    d=xxxfff000
+    //    d[5]=9 二娜通过地址xxxfff000找到空间,把空间中索引为5这一项的值修改为9
+
+    //    var a = b = c = d = [1, 2, 3, 4, 5];
+    //    //->首先开辟一个新的内存空间,浏览器为其分配一个地址xxxfff000
+    //    //->分别把数组中的每一项的值存储到这个空间中
+    //    //->把地址分别的赋值给a、b、c、d
+    //    a=xxxfff000
+    //    b=xxxfff000
+    //    c=xxxfff000
+    //    d=xxxfff000
+    //
+    //    d=[9];
+    //    //->首先开辟一个新的内存空间,浏览器为其分配一个地址xxxfff111
+    //    //->把9存储到空间中
+    //    //->把地址赋值给d
+    //    d=xxxfff111
+</script>
+</body>
+</html>

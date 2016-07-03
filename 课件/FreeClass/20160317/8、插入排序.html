@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>珠峰培训-插入排序</title>
+</head>
+<body>
+<script type="text/javascript">
+    //->插入排序：
+    //->把第一张牌放在左手
+    //->以后拿到每一张牌的时候,和左手中的牌进行依次比较(一般来说我们的习惯是从后往前比较),如果当前的牌比倒数第一张小,在继续往左比...一直到遇到当前的牌已经比手里的某张牌大了，则把这张牌插入到某张牌的后面(某张牌下一张牌的前面)
+
+    //    function insertSort(ary) {
+    //
+    //        //->newAry存储的就是我左手中已经抓取的牌
+    //        var newAry = [];
+    //        newAry.push(ary[0]);//->先抓第一张牌
+    //
+    //        //->依次把桌面上第二张及以后的牌抓到
+    //        for (var i = 1; i < ary.length; i++) {
+    //            var cur = ary[i];
+    //
+    //            //->抓到当前牌之后,分别的从后往前和左手中的牌进行比较
+    //            for (var j = newAry.length - 1; j >= 0;) {
+    //                if (cur < newAry[j]) {//->当前新抓的牌比左手中的newAry[j]这张牌小,继续和newAry[j]前面的牌比
+    //                    j--;
+    //                    if (j === -1) {//->说明当前拿的这张牌比左手所有的牌都小,我么把这张牌放在开头位置即可
+    //                        newAry.unshift(cur);
+    //                    }
+    //                } else {//->当前新抓的牌比左手中的newAry[j]这张牌大,放在newAry[j]这张牌的后面,也相当于插入到newAry[j+1]这张牌的前面
+    //                    newAry.splice(j + 1, 0, cur);
+    //                    j = -1;
+    //                }
+    //            }
+    //        }
+    //        return newAry;
+    //    }
+    //
+    //    var ary = [6, 3, 5, 7, 2, 4];
+    //    var res = insertSort(ary);
+    //    console.log(res);
+
+
+    //    for(var i=0;i<ary.length;i++){
+    //        console.log(ary[i]);
+    //    }
+
+    //    for(var i=ary.length-1;i>=0;i--){
+    //        console.log(ary[i]);
+    //    }
+
+
+    var ary = [6, 3, 5, 7, 2, 4];
+    function insertSort(ary) {
+        var key;
+        var j;
+        for (var i = 1; i < ary.length; i++) {
+            key = ary[i];
+            j = i - 1;
+            while (j > -1 && ary[j] > key) {
+                ary[j + 1] = ary[j];
+                j--;
+            }
+            ary[j + 1] = key;
+        }
+        return ary;
+    }
+    console.log(insertSort(ary));
+</script>
+</body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>对象</title>
+</head>
+<body>
+<script type="text/javascript">
+    //1、ECMAScript中规定每一个对象数据类型的值,都是由多组“属性名:属性值”组成的(由多组键值对组成“key:value”)
+    //2、ECMAScript中又规定,同一个对象中的属性名是不能重复的,如果重复了,后面的会把前面的给覆盖掉
+    //3、属性其实就是用来描述这个对象特征的
+    //var person1 = {name: "王伟华", age: 18, height: "175cm", eye: 2};
+
+    var obj = {name: "珠峰", age: 7, 0: 1};//0属性名 1属性值 ->一个对象中的属性名可以为数字
+
+    //3)删除对象中的某一个属性
+    //->假删除:让属性值为null,但是属性还在
+    //obj.name = null;
+
+    //->真删除:把属性从对象中彻底移除掉
+    //delete obj.name;
+
+    //2)增加/修改某一个属性名的属性值
+    //    obj["name"] = "珠峰培训";
+    //    obj.name = "珠峰培训";
+    //    //->之前有就是修改,没有就是增加
+    //    obj["height"] = "175cm";
+    //    obj.height = "175cm";
+
+
+    //1)获取对象中某一个属性名对应的属性值
+    //    console.log(obj.name);
+    //    console.log(obj["name"]);
+    //
+    //    //->如果获取的属性名是纯数字的话,"对象.属性名"这种方式就不行了
+    //    console.log(obj["0"]);
+    //    console.log(obj[0]);//->对于纯数字的属性名是可以把""去掉的,但是非纯数字的不可以
+    //    //console.log(obj.0)
+    //
+    //    //->如果获取的属性名在这个对象中不存在的话,获取到的结果默认就是undefined
+    //    console.log(obj.height);//->undefined
+
+    //2)"name"和name的区别?
+    //->"name"是一个值,一个字符串数据类型的值,它是一个常量
+    //->name是一个变量名,它是一个变量
+    //    var name = "height";
+    //    console.log(obj["name"]);//->获取的是obj下属性名字叫做name的属性值
+    //    console.log(obj[name]);//->获取的是obj下属性的名字叫做"name这个变量存储的值是它的名字"的属性值 ->obj[name] ==> obj["height"] 因为name变量存储的值是"height"
+
+    var ary = [12, 23, 34];
+    console.dir(ary);
+</script>
+</body>
+</html>

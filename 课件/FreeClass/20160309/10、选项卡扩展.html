@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        ul, li {
+            list-style: none;
+        }
+
+        #box {
+            margin: 10px auto;
+            width: 500px;
+        }
+
+        #box ul {
+            position: relative;
+            top: 1px;
+            overflow: hidden; /*清除子元素的浮动对自己的影响*/
+        }
+
+        #box ul li {
+            float: left;
+            margin-right: 10px;
+            width: 100px;
+            height: 30px;
+            line-height: 30px;
+            text-align: center;
+            border: 1px solid red;
+            cursor: pointer;
+        }
+
+        #box ul li.select {
+            background: lightgreen;
+            border-bottom: 1px solid lightgreen;
+        }
+
+        #box div {
+            display: none;
+            height: 150px;
+            line-height: 30px;
+            text-align: center;
+            border: 1px solid red;
+        }
+
+        #box div.select {
+            display: block;
+            background: lightgreen;
+        }
+    </style>
+</head>
+<body>
+<div id="box">
+    <ul>
+        <li class="select">CSS</li>
+        <li>全栈</li>
+        <li>移动端</li>
+    </ul>
+    <div class="select">HTML+CSS:随便一个网站静态布局都能做了</div>
+    <div>全栈:流行的框架和思想会了,原生JS也熟练了,自己可以只用JS写一套整站开发(前后台都自己做)</div>
+    <div>移动端:不管是什么移动端页面,要做多响应,都可以做,不仅如此而且从性能优化上,不亚于BAT的优化</div>
+</div>
+<script type="text/javascript">
+    var box = document.getElementById("box");
+    var oLis = box.getElementsByTagName("li");
+    var oDivs = box.getElementsByTagName("div");
+
+    function tabChange(n) {
+        for (var i = 0; i < oLis.length; i++) {
+            oLis[i].className = null;
+            oDivs[i].className = null;
+        }
+        oLis[n].className = "select";
+        oDivs[n].className = "select";
+    }
+
+    //    for (var i = 0; i < oLis.length; i++) {
+    //        oLis[i].onclick = function () {
+    //            console.log(i);//->经过尝试分析,确实是i的值出问题了:不管点击的是哪一个LI它的值都是3
+    //            //tabChange(i);
+    //        }
+    //    }
+    //哇卡卡->循环绑定点击事件,上述的代码实现不了
+    //->Uncaught TypeError: Cannot set property 'className' of undefined  (78) ->不能设置className属性的值,因为没有className属性的值是undefined,说明当前这个oLis[n]没有className这个属性 ->说明oLis[n]这个元素不存在 ->oLis肯定有,只能说明n这个索引错了 ->n是在点击的时候传递进来的 ->说明传递值的时候传递错了
+
+    //    for (var i = 0; i < oLis.length; i++) {
+    //        oLis[i].onclick = function () {
+    //            console.log(i);//->3
+    //        }
+    //    }
+    //i=0 第一次循环
+    //    oLis[0].onclick = function () {//->这个函数目前还没有执行呢,只有手动点击第一个LI的时候才执行，此时这个函数只是定义，函数体中的代码都是"字符串"，我们此时看到的i只是一个字符没有意义
+    //        "console.log(i);"
+    //    }
+
+    //i=1 第二次循环
+    //    oLis[1].onclick = function () {
+    //        "console.log(i);"
+    //    }
+
+    //i=2 第三次循环
+    //    oLis[2].onclick = function () {
+    //        "console.log(i);"
+    //    }
+
+    //i++ i=3 循环结束 此时的变量i已经等于3了
+
+    //点击第一个LI
+
+
+    //    for (var i = 0; i < oLis.length; i++) {
+    //        oLis[i].onclick = function () {
+    //            tabChange(i);//->我需要把对应的索引传递过去,但是不能用i了
+    //        }
+    //    }
+
+    //自定义属性：
+    //    for (var i = 0; i < oLis.length; i++) {
+    //        //->zhuFeng是我们每一次循环的时候,分别的给每一个li元素对象(它是对象数据类型的)增加的自定义的属性名，存储的属性值是当前这个LI的索引
+    //        //->增加自定义属性可以理解为在每一个LI的脸上贴一个纸条,写上了自己的索引,这样不管什么时候要用索引的话,我们只需要把纸条上的数字拿出来用即可
+    //        oLis[i].zhuFeng = i;
+    //        oLis[i].onclick = function () {
+    //            //this->当前点击的是哪一个LI,那么this就是谁
+    //            tabChange(this.zhuFeng);
+    //        }
+    //    }
+
+
+    //    for (var i = 0; i < oLis.length; i++) {
+    //        ~function(i){
+    //            oLis[i].onclick = function () {
+    //                tabChange(i);
+    //            }
+    //        }(i);
+    //    }
+
+    for (var i = 0; i < oLis.length; i++) {
+        oLis[i].onclick = (function (i) {
+            return function () {
+                tabChange(i);
+            }
+        })(i);
+    }
+</script>
+</body>
+</html>

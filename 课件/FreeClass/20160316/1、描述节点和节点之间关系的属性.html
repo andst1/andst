@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<h2>以下是珠峰培训课程大纲</h2>
+<ul id="ul1">
+    <!--以下是免费课-->
+    <li>
+        免费课第一周:数据类型、选项卡、99乘法表、数组
+        <ul>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+    </li>
+    <li>免费课第二周:DOM、String、Math、Date、定时器、算法</li>
+    <!--以下是JS正式课-->
+    <li id="li3">正式课第一周:作用域、this、面向对象</li>
+    <li id="li4">正式课第二周:DOM原型深入、call/apply、表格排序、正则</li>
+    <li>正式课第三周:盒子模型、延迟加载、异步编程、DOM库</li>
+    <li>正式课第四周:TWEEN动画、动画优化、回调函数、轮播图、jQuery原理</li>
+    <li>正式课第五周:DOM事件模型、事件委托、拖拽、放大镜、DOM2级事件的兼容</li>
+    <li>正式课第六周:观察者模式、照片墙拖拽、promise模式</li>
+    <li>正式课第七周:Ajax、JSONP、NODEJS</li>
+    <li>正式课第八周:响应式布局三个实战案例</li>
+    <li>正式课第九周:WEBAPP开发(腾讯体育实战案例)、关于移动端的深入实战优化技巧</li>
+    <!--以下是NODEJS正式课-->
+    <li>逼格高，实用性强，学了哪怕没学会工资翻2-4K没啥问题</li>
+</ul>
+<script type="text/javascript">
+    var oUl = document.getElementById("ul1");
+    var oLi3 = document.getElementById("li3");
+    var oLi4 = document.getElementById("li4");
+
+    //->DOM中提供给我们描述节点之间关系的一系列属性
+    //1、childNodes:获取当前元素下所有的子节点(只能获取儿子辈分的) ->获取的结果是一个节点集合NodeList(类数组)
+    //->当前元素下不管是文本(文字、空格、换行)还是注释，或者是元素节点，通过childNodes都获取到了
+
+    //2、children:获取当前元素下所有的元素子节点 ->获取到的结果是一个元素集合HTMLCollection(类数组)
+    //->获取到的只有元素节点
+    //->在IE6~8中获取到的结果和标准的浏览器获取的结果不一样
+
+    //->扩展:获取当前元素下的所有的元素子节点,需要兼容所有的浏览器
+    //刘琳杰思想:
+    //1)首先获取当前元素下所有的子节点->childNodes
+    //2)循环所有子节点中的每一个,判断它的nodeType值,只有nodeType===1的才是我想要的元素子节点
+    //3)把nodeType===1的增加一个新的数组中
+
+    //->curEle:获取curEle这个元素下的所有的元素子节点
+    //    function likeChildren(curEle) {
+    //        var ary = [];
+    //        var nodeList = curEle.childNodes;
+    //        for (var i = 0; i < nodeList.length; i++) {
+    //            var curNode = nodeList[i];
+    //            if (curNode.nodeType === 1) {
+    //                ary.push(curNode);
+    //            }
+    //        }
+    //        return ary;
+    //    }
+    //    var res = likeChildren(oUl);
+    //    console.log(res.length);
+
+    //思考题:我想在likeChildren基础上继续扩展->不仅获取到所有的元素子节点,而且我还可以指定标签名,例如：likeChildren(oUl)获取oUl下所有的元素子节点  likeChildren(oUl,"div") 获取oUl下所有元素子节点中标签名叫做DIV的元素子节点
+    //->jQuery中的children这个方法基本上就是这样实现的
+
+    //3、parentNode:获取当前元素的父亲节点
+
+    //4、previousSibling:获取当前元素的上一个哥哥节点(不一定是元素节点)
+    //->previousElementSibling:获取当前元素的上一个哥哥元素节点(在IE6~8下不兼容)
+
+    //5、nextSibling:获取当前元素的下一个弟弟节点(不一定是元素节点)
+    //->nextElementSibling:获取当前元素的下一个弟弟元素节点(在IE6~8下不兼容)
+
+    //->prev:获取当前元素的上一个哥哥元素节点(jQuery中也叫做prev,实现的原理和我们写的一样)
+    function prev(curEle) {
+        if (curEle.previousElementSibling) {//->如果当前的浏览器已经支持了previousElementSibling,就不需要自己写while循环获取了
+            return curEle.previousElementSibling;
+        }
+
+        var pre = curEle.previousSibling;//->首先获取当前元素的上一个哥哥节点
+        while (pre && pre.nodeType !== 1) {//->获取的内容存在,但是并不是元素节点,我们就继续基于当前的节点向上查找
+            pre = pre.previousSibling;
+        }
+        return pre;
+    }
+
+    //->prevAll:获取当前元素的所有的哥哥元素节点 ->基于当前元素一个个的向上查找,一直找到最头为止,在查找的过程中把nodeType===1的元素节点存储起来
+    function prevAll(curEle) {
+        var ary = [];
+        var pre = curEle.previousSibling;
+        while (pre) {
+            if (pre.nodeType === 1) {
+                ary.unshift(pre);
+            }
+            pre = pre.previousSibling;
+        }
+        return ary;
+    }
+    //console.log(prevAll(oLi4));
+
+    //思考题:获取下一个弟弟元素节点(next)、获取所有的弟弟元素节点(nextAll)、获取所有的兄弟元素节点(siblings->所有的哥哥加上所有的弟弟)、当前元素的索引位置(index->有几个哥哥索引就是几)...
+
+    //6、firstChild ->获取当前元素下所有子节点中的第一个 / firstElementChild ->获取当前元素下所有元素子节点中的第一个(不兼容的)
+
+    //7、lastChild ->获取当前元素下所有子节点中的最后一个 / lastElementChild ->获取当前元素下所有元素子节点中的最后一个(不兼容的)
+
+    //->思考题:first/last的两个方法解决firstElementChild/lastElementChild的兼容性问题
+</script>
+</body>
+</html>

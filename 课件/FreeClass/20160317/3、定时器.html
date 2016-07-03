@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>珠峰培训定时器的应用</title>
+</head>
+<body>
+<script type="text/javascript">
+    //1、定时器:设置一个定时器,并且设定一个等待的时间,当到达时间后,执行对应的操作
+    //->在页面的开发开发过程中,我们的动画效果(轮播图、倒计时...)一般都是使用定时器完成的->"JS动画"
+
+    //2、在JS中我们的定时器分为两种:setInterval、setTimeout
+    //->"轮循操作的定时器" window.setInterval([function],[interval]) 设置一个定时器,并且设置等待时间为[interval](ms),当到达时间后,执行[function],函数执行完成后,以后每隔[interval]这么长的时间,都会重新的执行一遍[function]...一直到我们手动的把定时器清除掉才结束(window.clearInterval)
+
+    //->"一次性操作定时器" window.setTimeout([function],[interval]) 设置一个定时器,并且设置等待时间为[interval](ms),当到达时间后,执行[function],函数执行完成后,定时器就结束了,以后都不在执行了(但是此时定时器未必清除了,想要清除使用window.clearTimeout)
+
+    //    var count = 0;
+    //    window.setInterval(function () {
+    //        count++;
+    //        console.log(count);
+    //    }, 1000);
+
+    //    var count = 0;
+    //    window.setTimeout(function () {
+    //        count++;
+    //        console.log(count);
+    //    }, 1000);
+
+    //3、定时器的返回值(它和去银行办业务取的那个排队号的机制是一模一样的)
+    //->设置一个定时器是有返回值的,返回结果是一个数字
+    //->数字代表的是当前是第几个定时器,数字为2代表当前的定时器是第二个
+
+    //->window.clearTimeout(数字N)/window.clearInterval(数字N) ->把第N个定时器清除掉
+    var timer1 = window.setTimeout(function () {
+
+    }, 1000);
+    console.log(timer1);//->1
+    window.clearTimeout(timer1);
+
+    var timer2 = window.setTimeout(function () {
+
+    }, 1000);
+    console.log(timer2);//->2
+
+    var timer3 = window.setInterval(function () {
+
+    }, 1000);
+    console.log(timer3);//->3
+</script>
+</body>
+</html>

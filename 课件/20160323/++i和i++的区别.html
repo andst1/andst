@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<script type="text/javascript">
+    //->不管是++i还是i++都是在自身的基础上累加1
+    //->区别在和其他的值进行运算的时候,累加的顺序不一样
+
+    //    var i = 10;
+    //    console.log(10 + (i++));//->20
+    //    console.log(i);//->11  先运算在自身+1,即使用括号括起来也不影响
+    //
+    //    i = 10;
+    //    console.log(10 + (++i));//->21
+    //    console.log(i);//->11 先自身+1,然后把加完的结果进行运算
+
+    //->思考扩展题:
+    var i = 10;
+    console.log(10 + (++i) + (i++) + (i++) + (++i));
+    console.log(i);
+</script>
+</body>
+</html>

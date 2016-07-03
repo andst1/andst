@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        div{width: 100px;
+            height: 100px;
+            position: absolute;
+            background: red;
+            cursor: move;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+        #div2{
+            top:120px;
+            left: 100px;
+            background: yellow;
+        }
+        #div3{
+            top:60px;
+            left: 170px;
+            background: green;
+        }
+    </style>
+</head>
+<body>
+<div id="div1"><img src="logo.png" width="100" height="100"> </div>
+<div id="div2"></div>
+<div id="div3"></div>
+</body>
+</html>
+<script src="JS/event.js"></script>
+<script>
+    //对比使用闭包和使用DOM元素自定义的差异
+    var oDivs=document.getElementsByTagName("div");
+    function fn(){
+        var x;var y;var fn;
+    }
+    //fn();x,y
+    for(var i=0;i<oDivs.length;i++){
+        -function(ele){
+            ele//被拖拽的元素
+            var x=null,y=null,mx=null,my=null;
+            //一个函数的运行：活动对象
+            //属性和对象：殊途同归
+            function down(e){
+               x=ele.offsetLeft;
+               y=ele.offsetTop;
+                mx= e.pageX;
+                my= e.pageY;
+                if(ele.setCapture){
+                    ele.setCapture();
+                    on(ele,"mousemove",move);
+                    on(ele,"mouseup",up);
+                }else{
+                    on(document,"mousemove",move);
+                    on(document,"mouseup",up);
+                }
+                e.preventDefault();
+            }
+            function move(e){
+                ele.style.left=x+(e.pageX-mx)+"px";
+                ele.style.top=y+(e.pageY-my)+"px";
+
+            }
+            function up(e){
+                if(ele.releaseCapture){
+                    ele.releaseCapture();
+                    off(ele,"mousemove",move);
+                    off(ele,"mouseup",up);
+                }else{
+                    off(document,"mousemove",move);
+                    off(document,"mouseup",up);
+                }
+            }
+            on(ele,"mousedown",down);
+
+        }(oDivs.item(i));
+    }
+</script>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<script type="text/javascript">
+    var ary = [4, 3, 5, 2, 1];
+
+    function bubbleSort(ary) {
+        var newAry = ary.slice(0);
+        var temp = null;
+        var flag = false;
+
+        for (var i = 0; i < newAry.length - 1; i++) {
+            for (var j = 0; j < newAry.length - 1 - i; j++) {
+                if (newAry[j] > newAry[j + 1]) {
+                    temp = newAry[j];
+                    newAry[j] = newAry[j + 1];
+                    newAry[j + 1] = temp;
+                    flag = true;
+                }
+            }
+            if (flag) {
+                flag = false;
+            } else {
+                break;
+            }
+        }
+        return newAry;
+    }
+    console.log(bubbleSort(ary));
+</script>
+</body>
+</html>

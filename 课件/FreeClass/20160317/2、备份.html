@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+            font-size: 24px;
+            -webkit-user-select: none;
+        }
+
+        #timeDiv {
+            margin: 20px auto;
+            width: 80%;
+            height: 50px;
+            line-height: 50px;
+            text-align: center;
+            border: 5px solid red;
+            letter-spacing: 3px;
+            cursor: pointer;
+
+            background: lightcyan;
+            background: -webkit-linear-gradient(bottom right, yellowgreen, powderblue, azure, cornsilk);
+            background: -moz-linear-gradient(bottom right, yellowgreen, powderblue, azure, cornsilk);
+            background: -ms-linear-gradient(bottom right, yellowgreen, powderblue, azure, cornsilk);
+            background: -o-linear-gradient(bottom right, yellowgreen, powderblue, azure, cornsilk);
+            background: linear-gradient(bottom right, yellowgreen, powderblue, azure, cornsilk);
+        }
+
+        #timeDiv span {
+            font-size: 28px;
+            color: red;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+<div id="timeDiv">距离开抢还剩 [ <span>01:23:08</span> ]</div>
+
+<script type="text/javascript">
+    //->如何的把一个时间格式的字符串变为标准的时间数据格式
+    //    console.log(new Date("2016-3-17 11:00:00"));//->在谷歌下没有问题,在IE下返回的是Invalid Date(无效的时间格式)
+    //    console.log(new Date("2016/3/17 11:00:00"));//->在IE下需要时间字符串中的"-"替换成"/"才可以识别
+    //    console.log(new Date("2016/3/17"));
+
+    //->两个时间数据相减获取的是之间的毫秒差
+    //->getTime:当前时间距离 1970-01-01 00:00:00 之间的毫秒差
+    //targetTime - nowTime的原理就是先后去targetTime.getTime()-nowTime.getTime()
+
+    function addZero(value) {
+        return value < 10 ? "0" + value : value;
+    }
+
+    var timeDiv = document.getElementById("timeDiv");
+    var timeSpan = timeDiv.getElementsByTagName("span")[0];//->我们获取的结果本身是一个集合,虽然里面只有一项,但是如果想操作这一项依然需要通过索引单独的获取到才可以
+
+    function diffFn() {
+        //->倒计时的原理：有一个目标时间targetTime,有一个当前时间nowTime,让targetTime-nowTime 计算这个差值中有多少小时、多少分、多少秒
+        var targetTime = new Date("2016/3/17 11:00:00");
+        var nowTime = new Date();
+        var diffTime = targetTime - nowTime;//->获取到的结果是两个日期之间的毫秒差
+
+        if (diffTime <= 0) {//->当前时间已经比目标时间要大了,倒计时应该结束了
+            timeSpan.innerHTML = "00:00:00";
+            return;
+        }
+
+        //->计算毫秒差中包含多少个小时
+        var hour = Math.floor(diffTime / (1000 * 60 * 60));
+        diffTime = diffTime - hour * 60 * 60 * 1000;//->计算完成小时后,把小时占用的毫秒数都减去,用剩下的毫秒数在去获取分钟
+
+        //->计算剩余毫秒差中包含多少个分钟
+        var minute = Math.floor(diffTime / (1000 * 60));
+        diffTime = diffTime - minute * 60 * 1000;
+
+        //->计算剩余毫秒差中包含多少个秒
+        var second = Math.floor(diffTime / 1000);
+
+        timeSpan.innerHTML = addZero(hour) + ":" + addZero(minute) + ":" + addZero(second);
+    }
+    diffFn();
+</script>
+</body>
+</html>

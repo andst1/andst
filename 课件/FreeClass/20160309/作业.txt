@@ -1,0 +1,23 @@
+1、思考题：算出答案并改写为if、else if、else判断
+   var num = 10;
+   num >= 0 ? (num <= 10 ? num++ : num--) : (num >= -10 ? num++ : null);//->null就是什么都不做,写void 0;或者是undefined;和写的null的效果一样
+
+2、思考题：基于我们的“5、盒子颜色切换.html”扩展
+  ->把if、else if、else这个判断使用switch case进行替换
+
+  [附加]
+  ->颜色是 红色->蓝色->绿色->粉色(pink)->红色
+  ->if (bg === "red") {oDiv.style.backgroundColor = "green";} 能不能把这类代码替换为 if (bg === "red") {bg = "green";}
+
+3、思考题：基于我们的“7、隔行变色.html”扩展
+  ->实现每隔五行变色 红色、绿色、蓝色、粉色、黄色、红色、绿色...
+
+
+4、思考题：实现选项卡的扩展
+
+
+5、珠峰培训免费课随堂测试题.doc
+
+
+作业交到邮箱：1002@zhufengpeixun.cn
+命名:二期免费课全日制/周末+QQ+姓名.rar

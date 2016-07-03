@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+            font-size: 24px;
+            -webkit-user-select: none;
+        }
+
+        #timeDiv {
+            margin: 20px auto;
+            width: 80%;
+            height: 50px;
+            line-height: 50px;
+            text-align: center;
+            border: 5px solid red;
+            letter-spacing: 3px;
+            cursor: pointer;
+
+            background: lightcyan;
+            background: -webkit-linear-gradient(bottom right, yellowgreen, powderblue, azure, cornsilk);
+            background: -moz-linear-gradient(bottom right, yellowgreen, powderblue, azure, cornsilk);
+            background: -ms-linear-gradient(bottom right, yellowgreen, powderblue, azure, cornsilk);
+            background: -o-linear-gradient(bottom right, yellowgreen, powderblue, azure, cornsilk);
+            background: linear-gradient(bottom right, yellowgreen, powderblue, azure, cornsilk);
+        }
+    </style>
+</head>
+<body>
+<div id="timeDiv"></div>
+
+<script type="text/javascript">
+    //->GMT+0000 英国的格林尼治时间
+    //->GMT+0800 东八区(北京时间)
+    //->UTC-0500 西五区(纽约时间)
+
+    //->获取当前自己电脑的时间:这个时间是用户自己电脑的时间,如果用户把时间修改了,获取的时间也是修改后的时间(所以这个时间不能作为重要业务的参考时间:抢购的倒计时)
+    //    var time = new Date();
+    //    console.dir(time);//->Wed Mar 16 2016 17:18:56 GMT+0800 (中国标准时间)
+    //    console.dir(Date.prototype);
+
+    //    var year = time.getFullYear();//->获取四位年
+    //    var month = time.getMonth() + 1;//->获取月0~11 代表1~12月
+    //    var day = time.getDate();//->获取日
+    //    var week = time.getDay();//->获取星期 0~6 周日~周六
+    //    var hour = time.getHours();//->获取小时
+    //    var minute = time.getMinutes();//->获取分钟
+    //    var second = time.getSeconds();//->获取秒
+    //    var msSecond = time.getMilliseconds();//->获取毫秒
+
+    //->"2016年03月16日 星期三 17时18分56秒"
+    var timeDiv = document.getElementById("timeDiv");
+    function addZero(value) {
+        return value < 10 ? "0" + value : value;
+    }
+    function getTime() {
+        var time = new Date();
+        var year = time.getFullYear();
+        var month = time.getMonth() + 1;
+        var day = time.getDate();
+        var hour = time.getHours();
+        var minute = time.getMinutes();
+        var second = time.getSeconds();
+
+        var week = time.getDay();
+        var area = "日一二三四五六";//->0~6
+//        week 0 ->日 area[0]
+//        week 3 ->三 area[3]
+
+        timeDiv.innerHTML = year + "年" + addZero(month) + "月" + addZero(day) + "日 星期" + area[week] + " " + addZero(hour) + "时" + addZero(minute) + "分" + addZero(second) + "秒";
+    }
+    getTime();
+
+    //    var tempWeek = "";
+    //    switch (week) {
+    //        case 0:
+    //            tempWeek = "日";
+    //            break;
+    //        case 1:
+    //            tempWeek = "一";
+    //            break;
+    //        case 2:
+    //            tempWeek = "二";
+    //            break;
+    //        case 3:
+    //            tempWeek = "三";
+    //            break;
+    //        case 4:
+    //            tempWeek = "四";
+    //            break;
+    //        case 5:
+    //            tempWeek = "五";
+    //            break;
+    //        case 6:
+    //            tempWeek = "六";
+    //    }
+</script>
+</body>
+</html>

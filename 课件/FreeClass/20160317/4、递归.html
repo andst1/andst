@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>珠峰培训-递归</title>
+</head>
+<body>
+<script type="text/javascript">
+    //->1、递归:当前函数自己调用自己执行
+
+    //->实现1-100之间,把所有不能被三整除的数相加
+    //    var total = null;
+    //    for (var i = 1; i <= 100; i++) {
+    //        if (i % 3 !== 0) {
+    //            total += i;
+    //        }
+    //    }
+    //    console.log(total);//->3367
+
+    //    var total = null;
+    //    var i = 1;
+    //    while (i <= 100) {
+    //        i % 3 !== 0 ? total += i : null;
+    //        i++;
+    //    }
+    //    console.log(total);//->3367
+
+    //    function sum(n) {
+    //        if(n===0){
+    //            return 0;
+    //        }
+    //
+    //        return n + sum(n - 1);//->100+sum(99) ->100+99+sum(98) ->100+99+98+sum(97).... ->100+99+98+97+...+1+sum(0) ->100+99+98+97+...+1+0
+    //    }
+    //    var total = sum(100);
+    //    console.log(total);
+
+    //    function sum(n) {
+    //        //->传递进来的值如果是0,说明已经累加到头了,我们不需要再调用自己继续累加了,返回一个0
+    //        if (n === 0) {
+    //            return 0;
+    //        }
+    //
+    //        //->如果传递进来的n的值可以被三整除的话,我们当前的这个值就不需要再累加了
+    //        if (n % 3 === 0) {
+    //            return sum(n - 1);
+    //        }
+    //
+    //        return n + sum(n - 1);
+    //    }
+    //    var total = sum(10);
+    //    //->sum(10) ->10+sum(9) ->10+sum(8) ->10+8+sum(7) ->10+8+7+sum(6) ->10+8+7+sum(5) -> 10+8+7+5+sum(4) -> 10+8+7+5+4+sum(3) -> 10+8+7+5+4+sum(2) ->10+8+7+5+4+2+sum(1) ->10+8+7+5+4+2+1+sum(0) ->10+8+7+5+4+2+1+0
+    //    console.log(total);
+
+    //->从1-10把所有能被二整除的进行相乘(递归)
+    //    function fn(n) {
+    //        if (n == 1) {
+    //            return 1;
+    //        }
+    //        if (n % 2 !== 0) {
+    //            return fn(n - 1);
+    //        }
+    //        return n * fn(n - 1);
+    //    }
+    //    var res = fn(10);//->10*fn(9) ->10*fn(8) ->10*8*fn(7) ->10*8*6*4*2*fn(1) ->10*8*6*4*2*1
+    //    console.log(res);
+
+</script>
+</body>
+</html>

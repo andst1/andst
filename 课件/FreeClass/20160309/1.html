@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+            font-family: "微软雅黑";
+            font-size: 14px;
+        }
+
+        #div1 {
+            margin: 20px auto;
+            line-height: 25px;
+            border: 1px solid #000;
+        }
+
+        .box {
+            width: 300px;
+            background: limegreen;
+        }
+    </style>
+</head>
+<body>
+<div id="div1">站在台风口上,猪都能飞起来~~现在的前端+NODEJS全栈开发就是台风口,你们还不能飞起来吗?</div>
+
+<script type="text/javascript">
+    //DOM:document object model 文档对象模型
+    //BOM:browser object model 浏览器对象模型
+    //document 文档对象
+    //window 浏览器对象
+
+    //alert ->先把要输出的内容转换为字符串然后在输出
+    //alert(1);//->"1"
+
+    //    console.log([1,2,3]);
+    //    console.dir([1,2,3]);
+
+    //document.write("欢迎大家来到珠峰培训~~") ->在页面中输出我们想要展示的内容 ->和alert一样,它也是把要输出的内容先转换为字符串然后在输出
+
+    //innerHTML/innerText 向指定元素中添加内容/获取指定元素中的内容
+
+    //以后再编写JS的时候,想要操作哪些元素,首先就要把这些元素获取到,只有获取到才能进行操作
+
+    //1、
+    //把页面中的#div1获取到
+    //document.getElementById:在整个文档中,通过元素的ID获取到当前的这个元素
+    //->document在这里是限定了我们获取元素的范围,我们把它称之为"上下文context"
+    //->由于一个页面中我们元素的ID理论上是唯一的,不能重复,所以在整个文档中查找和在其它范围查找,找到的还是这个ID,故此JS规定,getElementById这个获取的方法,它的上下文只能是document
+    var oDiv = document.getElementById("div1");//->把获取的元素当做一个值赋值给oDiv这个变量,此时oDiv存储/代表的就是当前#div1这个元素
+    console.log(typeof oDiv);//->"object" 说明获取到的元素是一个对象数据类型的
+
+    //2、查看一个元素对象中常用的属性
+    console.dir(oDiv);
+
+    //->className:"" 获取/设置当前元素的样式类名class='xxx'
+    //    console.log(oDiv.className);
+    oDiv.className = "box";
+    //    console.log(oDiv["className"]);
+
+    //->id: "div1" 获取/设置当前元素的ID
+
+    //->获取或者设置元素的内容的
+    //->innerHTML: "站在台风口上..."
+    //->innerText: "站在台风口上..."
+    //->区别:
+    //->innerHTML在增加内容的时候,如果内容中存在HTML标签的话,浏览器会默认的把HTML解析为正常的标签,起到其应该有的目的
+    //->innerText不管里面的内容是什么,都会当做字符串添加进去,不能向innerHTML那样自动的识别标签(火狐浏览器不兼容这个方法)
+
+    //    console.log(oDiv.innerHTML);
+    //    oDiv.innerHTML += "<a href='http://www.zhufengpeixun.cn/'>珠峰培训</a>";
+
+    //    console.log(oDiv.innerText);
+    //    oDiv.innerText += "<a href='http://www.zhufengpeixun.cn/'>珠峰培训</a>";
+
+
+    //->onclick: null 给当前元素绑定点击事件
+    //->tagName: "DIV" 当前元素的标签名(名字一般是大写的,但是也有小写的情况)
+
+    //->style:CSSStyleDeclaration(CSS样式详细描述) ->属性值又是一个对象数据类型的值
+    //->获取/设置元素的"行内样式"的:只有把样式写在行内上才能获取到,写在其它的地方都无法通过oDiv.style获取
+    console.log(oDiv.style.width);//->"" 当前元素有宽度值,但是由于没有写在行内样式上,所以通过oDiv.style.xxx是获取不到的
+
+    //->getComputedStyle、currentStyle 获取元素的样式,不管写在哪,不管写没写都可以获取到
+</script>
+</body>
+</html>

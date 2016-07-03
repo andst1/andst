@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<script type="text/javascript">
+    //    var ary = [6, 3, 5, 7, 2, 4];
+    //    function insertSort(ary) {
+    //        var newAry = [];
+    //        newAry.push(ary[0]);
+    //
+    //        for (var i = 1; i < ary.length; i++) {
+    //            var cur = ary[i];
+    //            for (var j = newAry.length - 1; j >= 0;) {
+    //                if (cur < newAry[j]) {
+    //                    j--;
+    //                    if (j < 0) {
+    //                        newAry.unshift(cur);
+    //                    }
+    //                } else {
+    //                    newAry.splice(j + 1, 0, cur);
+    //                    j = -1;
+    //                }
+    //            }
+    //        }
+    //
+    //        return newAry;
+    //    }
+    //    console.log(insertSort(ary));
+
+    var ary = [6, 3, 5, 7, 2, 4];
+    function insertSort(ary) {
+        var key;
+        var j;
+        for (var i = 1; i < ary.length; i++) {
+            key = ary[i];
+            j = i - 1;
+            while (j > -1 && ary[j] > key) {
+                ary[j + 1] = ary[j];
+                j--;
+            }
+            ary[j + 1] = key;
+        }
+        return ary;
+    }
+    console.log(insertSort(ary));
+</script>
+</body>
+</html>

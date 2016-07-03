@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<div id="div1">
+    <div class="w1 w2 w3" name="zhufeng"></div>
+    <div class="w1 w2"></div>
+    <div class="w2 w3" id="div1">
+        <div class="w3"></div>
+        <div class="w1" name="zhufeng"></div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+    //1、document.getElementById("元素的ID")
+    //->通过元素的ID获取到这个元素对象
+    //->document限定了我们获取的范围(再整个文档中查找),我们把其称之为上下文(context)
+    var oDiv = document.getElementById("div1");
+
+    //1)一个页面中理论上ID是不能重复的,但是一旦重复也不会报错
+    //->由于理论上ID是不能重复的,所以getElementById的上下文只能是document
+    //->现实中ID可能会有重复的,一旦重复我们获取的永远是第一个
+
+    //2)在IE6~7浏览器中,会把表单元素的NAME当做ID来用(以后在命名的时候,不仅仅ID不能重复,并且name和id也不能重复)
+    //    <input name="zhufeng"> 会把name当做ID,这样就和下面的冲突了
+    //    <div id="zhufeng"></div>
+
+    //3)在JS中我们可以直接使用元素的ID获取这个元素,不需要使用getElementById获取(不推荐)
+    //    div1.style.width = "300px";
+    //    div1.style.height = "300px";
+    //    div1.style.backgroundColor = "red";
+    //->如果ID重复了,我们通过getElementById获取的是第一个,但是直接通过用ID来获取的话有几个就获取几个
+
+
+    //2、[context].getElementsByTagName("元素的标签名")
+    //->在指定的上下文中,通过元素的标签名获取到一组元素(获取的结果是一个元素集合HTMLCollection)也是一个类数组
+    //->getElementsByTagName是把当前容器下,所有叫做DIV的这个标签名的元素都获取到了(把子子孙孙级别的元素都获取到了)
+    var oList = oDiv.getElementsByTagName("div");
+
+
+    //3、[context].getElementsByClassName("样式类名")
+    //->在指定的上下文中,通过元素的样式类名获取到一组元素(获取的结果是一个元素集合HTMLCollection)也是一个类数组
+    //->在IE6~8浏览器中不兼容这个方法(正式课第三周我们自己写一个方法兼容所有的浏览器)
+    //    console.log(oDiv.getElementsByClassName("w1"));//->把oDiv下(子子孙孙辈分的)所有样式类名中包含"w1"的元素都获取到
+    //    console.log(oDiv.getElementsByClassName("w1 w3"));//->把oDiv下同时包含"w1"和"w3"样式类名的元素都获取到
+    function getElementsByClass(strClass, context) {
+        context = context || document;
+        if ("getElementsByClassName" in document) {
+            return context.getElementsByClassName(strClass);
+        }
+        var tagList = context.getElementsByTagName("*"), ary = [];
+        strClass = strClass.replace(/(^ +| +$)/g, "").split(/ +/);
+        for (var i = 0; i < tagList.length; i++) {
+            var curTag = tagList[i], curTagClass = curTag.className;
+            var flag = true;
+            for (var k = 0; k < strClass.length; k++) {
+                var reg = new RegExp("(?:^| +)" + strClass[k] + "(?: +|$)");
+                if (!reg.test(curTagClass)) {
+                    flag = false;
+                    break;
+                }
+            }
+            flag ? ary[ary.length] = curTag : null;
+        }
+        return ary;
+    }
+
+
+    //4、document.getElementsByName("name值")
+    //->在整个文档中,通过元素的name属性值获取一组元素(获取的结果是一个节点集合NodeList 但是在IE下获取的还是元素集合)也是一个类数组
+    //->在IE浏览器中,这个方法只对表单元素起作用(因为在IE浏览器中,认为只有表单元素的name才是合法的,像div、span等这些非表单元素如果写上name,IE浏览器不认)
+    //->getElementsByName的上下文只能是document
+
+    //console.log(oDiv.getElementsByName("zhufeng"));//->Uncaught TypeError: oDiv.getElementsByName is not a function
+    //console.log(document.getElementsByName("zhufeng"));
+
+
+    //5、document.documentElement ->获取整个HTML   document.body ->获取整个body
+    //->获取整个屏幕的宽度/高度
+    //document.documentElement.clientWidth||document.body.clientWidth
+    //document.documentElement.clientHeight||document.body.clientHeight
+    //->想要兼容所有的浏览器,必须document.documentElement和document.body都要写,中间用||分隔；并且document.documentElement必须在前
+
+
+    //6、在IE6~8不兼容,一般都是用来做移动端开发才使用的
+    //->[context].querySelector()
+    //->[context].querySelectorAll()
+    //->通过选择器获取需要的元素,querySelector是获取一个(即使有多个获取的也是第一个),querySelectorAll是获取所有
+</script>
+</body>
+</html>

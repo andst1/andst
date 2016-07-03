@@ -1,0 +1,51 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+
+</head>
+
+<body>
+<div id="div1" style="width:100px; height:100px; position:absolute; top:0; left:0; cursor:move; background:red"><img src="img.jpg" width="100" height="100" style="border:none;"></div>
+</body>
+</html>
+<script src="event.js"></script>
+<script>
+var oDiv1=document.getElementById('div1');
+on(oDiv1,"mousedown",down);
+function down(e){//准备拖拽
+	this.x=this.offsetLeft;
+	this.y=this.offsetTop;
+	this.mx=e.pageX;
+	this.my=e.pageY;
+	
+	if(this.setCapture){
+		this.setCapture();
+		on(this,"mousemove",move);
+		on(this,"mouseup",up)	
+	}else{
+		this.MOVE=processThis(this,move);
+		this.UP=processThis(this,up);
+		on(document,"mousemove",this.MOVE);
+		on(document,"mouseup",this.UP);
+		
+	}
+	e.preventDefault();
+}
+function move(e){//进行拖拽
+	this.style.left=e.pageX-this.mx+this.x+"px";
+	this.style.top=e.pageY-this.my+this.y+"px";
+}
+function up(e){//结束拖拽
+	if(this.releaseCapture){
+		this.releaseCapture();
+		off(this,"mousemove",move)	;
+		off(this,"mouseup",up);		
+	}else{
+		off(document,"mousemove",this.MOVE);
+		off(document,"mouseup",this.UP);	
+	}
+}
+
+</script>

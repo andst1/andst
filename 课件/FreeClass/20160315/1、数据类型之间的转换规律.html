@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<script type="text/javascript">
+    //->JS中的数据类型转换非常的变态,在不同的情况下,规律是不一样的,想要彻底掌握,需要把每一种情况的规律"单独的"牢牢记下来
+
+    //-> 1、把其它的数据类型转换为number类型
+    //->方法：Number、parseInt、parseFloat...
+    //->在 -、*、/ 的数学运算中,遇到不是数字类型的值,要先转换为数字在进行运算
+
+    //    Number("") ->0
+    //    Number("12") ->12
+    //    Number("12px") ->NaN
+    //    parseInt("12px") ->12  parseInt("px12") ->NaN
+
+    //    Number(true) - > 1
+    //    Number(false) - > 0
+
+    //    Number(null) ->0
+    //    Number(undefined) ->NaN
+
+    //->把对象数据类型转换为数字：首先把其转换为字符串(toString),然后在把字符串转换为数字(Number)
+    //    Number([]) ->0 先把数组转换为字符串 []->"",然后在把字符串转换为数字 ""->0
+    //    Number({}) ->NaN  ({}).toString() ->"[object Object]"  Number("[object Object]") ->NaN
+
+
+    //->2、把其他的数据类型转换为布尔类型
+    //->方法:Boolean、!、!!
+    //->if(1){}  如果条件是一个单独的值,它默认的意思是先把这个值转换为布尔类型然后看真还是假,为真条件成立,反之条件不成立
+    //->if("3px"+3){} 首先进行字符串拼接->"3px3" 然后把这个结果转换为布尔类型看真还是假
+    //->if("3px"*3){} 首先进行数学运算->NaN 转换为布尔类型看真假
+
+    //我们只需要遵循一个规律即可："只有 0、NaN、null、undefined、空字符串 这个五个转换为布尔类型是false，其余的都是真"
+
+    //    !!1 ->true
+    //    !!0 ->false
+    //    !!NaN ->false
+
+    //    !1 ->false
+    //    !0 ->true
+
+    //    !!"" ->false
+    //    !!"a" ->true
+    //    !"" ->true
+
+    //    !null ->true
+    //    !undefined ->true;
+
+    //    !![] ->true
+    //    ![] ->false
+
+
+    //->3、在使用"=="进行比较的时候，如果两边的数据类型不一样，它的转换的规律如下
+    //方法: value1==value2
+
+    //规律：
+    //1)对象==对象
+    //    他们比较的是内存地址,如果地址一样则相等,地址不一样就不相等
+    //    []==[] ->xxxfff000==xxxfff111 ->false
+    //    var obj={}; var obj2=obj;  obj==obj2->true
+
+    //2)对象==字符串
+    //    把对象通过调取toString的方法转换为字符串,然后在进行比较
+    //    []=="" ->true
+
+    //3)对象==布尔
+    //    对象先转换为字符串(toString),然后在转换为数字(Number)
+    //    布尔类型也是转换为数字
+    //    []==false ->true  []->0  false->0
+    //    []==true ->false  []->0  true->1
+
+    //百度面试题:
+    //    []==false ->true
+    //    ![]==false ->true  先计算![]的结果,在拿结果和false进行比较 ![]->false  false==false
+    //    []==[] ->false
+    //    []==![] ->先计算![]的结果,在拿结果和[]进行比较 ![]->false []==false->true
+
+
+    //4)对象==数字
+    //    把对象转换为数字,先转换为字符串(toString),然后在把字符串转换为数字(Number)
+    //    []==0 ->true
+    //    []==1 ->false
+
+    //5)字符串==布尔
+    //    都转换为数字
+    //    ""==true ->false
+    //    ""==false ->true
+
+    //6)字符串==数字
+    //    字符串转换为数字
+    //    ""==1 ->false
+    //    ""==0 ->true
+
+
+    //7)布尔==数字
+    //    布尔转换为数字
+    //    true==0 ->false
+    //    true==1 ->true
+    //    true==2 ->false
+    //    false==0 ->true
+
+    //8)null/undefined
+    //    null和undefined本身相等,但是不管哪一个和其他任何的值都不相等
+    //    null==undefined ->true
+    //    null===undefined ->false
+    //    null==0 ->false
+    //    undefined==0 ->false
+
+    //9)NaN
+    //    NaN和自己不相等,和其他的任何值都不相等
+    //    NaN==false ->false
+    //    NaN==NaN ->false
+
+    //扩展：关于JS中的数学逻辑运算 +、-、*、/
+    //    "10"-2 ->数学相减 首先把"10"->10 然后10-2=8
+    //    "10px"-2 ->NaN
+    //    "10"*3 ->30
+    //    "10"/2 ->5
+    //    2*null ->0
+
+    //    10 + null -> 10 数学运算
+    //    10 + undefined -> NaN 数学运算
+    //    10+"30" ->"1030" 字符串拼接
+    //->"在JS中,‘+’不仅仅是数学运算,如果遇到了字符串,就不在是数学运算了,而是变成了字符串拼接"
+
+    //腾讯面试题:
+    //    var res = 10 + null + undefined + [] + "珠峰" + null + [] + undefined;
+    //    //10+null->10  10+undefined->NaN  NaN+[]->NaN NaN+"珠峰"->"NaN珠峰"  "NaN珠峰"+null->"NaN珠峰null"   "NaN珠峰null"+[]->"NaN珠峰null"  "NaN珠峰null"+undefined->"NaN珠峰nullundefined"
+    //    console.log(res);//->"NaN珠峰nullundefined";
+
+
+    //    if ("3px" * 3) {
+    //        alert(true);
+    //    } else {
+    //        alert(false);
+    //    }
+    //    //"false" ->alert输出的时候是先把值转换为字符串然后在输出
+</script>
+</body>
+</html>

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<script type="text/javascript">
+    var ary = [12, 23, 23, 12, 24, 34, 34, 23, 34, 5, 21, 2];
+
+    //->如果需求是既要去重也要排序,我们只需要利用对象的特点即可实现
+    var obj = {};
+    for (var i = 0; i < ary.length; i++) {
+        var cur = ary[i];
+        obj[cur] = cur;
+    }
+
+    var newAry = [];
+    for (var key in obj) {
+        newAry[newAry.length] = obj[key];
+    }
+    console.log(newAry);
+
+    //->long long ago
+    //    //->unique:数组去重
+    //    function unique(ary) {
+    //        var obj = {};
+    //        for (var i = 0; i < ary.length; i++) {
+    //            var cur = ary[i];
+    //            if (obj[cur] == cur) {
+    //                ary[i] = ary[ary.length - 1];
+    //                ary.length--;
+    //                i--;
+    //                continue;
+    //            }
+    //            obj[cur] = cur;
+    //        }
+    //        obj = null;
+    //        return ary;
+    //    }
+    //
+    //    //->quickSort:数组排序(快速排序的思想)
+    //    function quickSort(ary) {
+    //        if (ary.length <= 1) {
+    //            return ary;
+    //        }
+    //        var pointIndex = Math.floor(ary.length / 2);
+    //        var pointValue = ary.splice(pointIndex, 1)[0];
+    //        var left = [], right = [];
+    //        for (var i = 0; i < ary.length; i++) {
+    //            var cur = ary[i];
+    //            cur < pointValue ? left.push(cur) : right.push(cur);
+    //        }
+    //        return quickSort(left).concat([pointValue], quickSort(right));
+    //    }
+    //
+    //    var newAry = unique(ary);
+    //    newAry = quickSort(newAry);
+    //    console.log(newAry);
+
+
+    //->long long long long ago
+    //    var obj = {};
+    //    for (var i = 0; i < ary.length; i++) {
+    //        var cur = ary[i];
+    //        if (obj[cur] == cur) {
+    //            ary[i] = ary[ary.length - 1];
+    //            ary.length--;
+    //            i--;
+    //            continue
+    //        }
+    //        obj[cur] = cur;
+    //    }
+    //    obj = null;
+    //
+    //    function sortAry(ary) {
+    //        for (var i = 0; i < ary.length - 1; i++) {
+    //            for (var j = 0; j < ary.length - 1 - i; j++) {
+    //                var cur = ary[j], next = ary[j + 1];
+    //                if (cur > next) {
+    //                    var temp = ary[j];
+    //                    ary[j] = ary[j + 1];
+    //                    ary[j + 1] = temp;
+    //                }
+    //            }
+    //        }
+    //        return ary;
+    //    }
+    //
+    //    console.log(sortAry(ary));
+</script>
+</body>
+</html>

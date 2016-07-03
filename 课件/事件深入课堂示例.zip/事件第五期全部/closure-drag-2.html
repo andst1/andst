@@ -1,0 +1,78 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+<style type="text/css">
+div{ position:absolute; left:0; top:0; background:green; height:100px; width:100px; cursor:move; -webkit-user-select:none; -moz-user-select:none;}
+
+</style>
+</head>
+
+<body>
+<div >div1</div>
+<div >div2</div>
+<div >div3</div>
+<div >div4</div>
+<div >div5</div>
+<div >div6</div>
+<div >div7</div>
+<div >div8</div>
+<div >div9</div>
+<div >div10</div>
+
+</body>
+</html>
+
+<script src="event.js"></script>
+<script>
+//u闭包活动的对象，类是固定的对象
+function processThis(obj,fn){	
+	return function(e){fn.call(obj,e)}	
+}
+var eles=document.getElementsByTagName('div');
+for(var i=0;i<eles.length;i++){
+	(function(){
+		//活动对象和“固定对象”
+		var x=null;
+		var y=null;
+		var mx=null;
+		var my=null;
+		
+		var ele=eles.item(i);
+		var MOVE=processThis(ele,move);
+		var UP=processThis(ele,up)
+		function down(e){
+			x=this.offsetLeft;
+			y=this.offsetTop;
+			mx=e.pageX;
+			my=e.pageY;
+			if(this.setCapture){
+				this.setCapture();
+				on(this,"mousemove",move);
+				on(this,"mouseup",up);
+			}else{
+				on(document,"mousemove",MOVE)
+				on(document,"mouseup",UP);	
+			}
+		}
+		function move(e){
+			this.style.left=e.pageX-mx+x+"px";
+			this.style.top=e.pageY-my+y+"px";
+			
+		}
+		function up(){
+			if(this.releaseCapture){
+				this.releaseCapture();
+				off(this,"mousemove",move);
+				off(this,"mouseup",up)
+			}else{
+				off(document,"mousemove",MOVE);
+				off(document,"mouseup",UP);
+			}
+		}
+		on(ele,"mousedown",down);	
+	})();
+}
+
+</script>

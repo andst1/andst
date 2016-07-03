@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .box {
+            margin: 20px;
+            width: 100px;
+            height: 100px;
+            border: 1px solid #000;
+        }
+    </style>
+</head>
+<body>
+
+<script type="text/javascript">
+    //1、动态创建元素标签
+    var oDiv1 = document.createElement("div");//->动态的创建一个叫做div的元素标签
+    oDiv1.id = "div1";
+    oDiv1.className = "box";
+    oDiv1.style.backgroundColor = "red";
+    oDiv1.innerHTML = "珠峰培训";
+
+    //2、把动态创建的元素标签增加到页面中
+    document.body.appendChild(oDiv1);//->把oDiv1这个元素标签添加到body的末尾位置
+
+    //3、把oDiv1克隆一份一模一样的 ->cloneNode
+    var oDiv2 = oDiv1.cloneNode(false);//->true把当前的标签和里面的内容都克隆 false->只把当前标签克隆了,里面的内容不克隆
+    oDiv2.id = "div2";
+    oDiv2.style.backgroundColor = "green";
+
+    document.body.insertBefore(oDiv2, oDiv1);//->把oDiv2添加到oDiv1的前面,不管在前面还是在后面,最终也在body中,所以是document.body.insertBefore
+
+    var oDiv3 = document.createElement("p");
+    oDiv3.id = "p3";
+    //oDiv3.className = "box";
+    oDiv3.style.backgroundColor = "blue";
+
+    document.body.replaceChild(oDiv3, oDiv1);//->把body中的oDiv1用oDiv3进行替换
+
+    document.body.removeChild(oDiv2);//->在body中把oDiv2移除掉
+
+
+    //->给元素设置自定义属性
+    //1)把元素当做一个对象,通过 "对象名.属性名=属性值"/"对象名["属性名"]=属性值" 的方式创建，通过 "对象名.属性名" 获取属性值
+    //    oDiv3.zhuFeng = "耿老"; //==>oDiv3["zhuFeng"]="耿老";
+    //    console.log(oDiv3.zhuFeng);
+
+    //2)setAttribute/getAttribute/removeAttribute 这三组方法是一块使用的,用第一种设置的自定义属性，用第二种中的getAttribute是获取不到的...
+    //->相对于第一种的区别:我们使用setAttribute设置的可以在HTML结构上看到,换句话说,在HTML结构上能够看到的自定义属性只能用getAttribute来获取
+    //    oDiv3.setAttribute("zhuFeng", "耿老");
+    //    console.log(oDiv3.getAttribute("zhuFeng"));
+    //    oDiv3.removeAttribute("zhuFeng");
+
+    //->兼容性问题:在IE6~7浏览器中,不能用setAttribute设置class属性的值
+    //oDiv3.setAttribute("class", "box");
+</script>
+</body>
+</html>

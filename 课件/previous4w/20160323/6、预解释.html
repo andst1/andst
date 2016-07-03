@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>预解释</title>
+</head>
+<body>
+<script type="text/javascript">
+    //1、预解释(变量提声):它是一个阶段,在作用域形成后,JS代码执行之前,首先把当前作用域下所有带var/function关键字的进行提前的声明或者定义
+
+    //var num=12;
+    //->声明(declare):创建一个变量 var num;  ->只声明没有赋值的话,我们的变量的默认值是undefined;
+    //->定义(defined):给变量赋值 num=12;
+
+    //2、带var关键字的在预解释阶段只是提前的声明
+    //全局作用域下的预解释:
+    //  var num;
+    //全局作用域下的代码执行:
+    //    console.log(num);//->undefined
+    //    var num = 12;//->num=12
+    //    console.log(num);//->12
+
+    //3、带function关键字的在预解释阶段把声明+定义两部分都完成了
+    //全局作用域下的预解释:
+    // fn = xxxfff000
+    //全局作用域下的代码执行:
+    //    console.log(fn);//->函数本身
+    //    function fn() {
+    //        var total = null;
+    //        total = 1 + 1;
+    //        console.log(total);
+    //    }//->预解释阶段,我们的函数fn已经完成过了声明+定义,所以当代码执行到28~32的时候不需要再从新的处理
+    //    console.log(fn);//->函数本身
+
+    //4、
+    //->在全局作用域下声明的变量,不仅仅是全局变量,也是全局作用域(window)的一个属性名,变量存储的值是这个属性名的属性值("只有在全局作用域下才有这样的机制")
+    //预解释：var num; ->window.num=undefined;
+    //    console.log(window.num);
+    //    var num = 12;//->->window.num=12;
+    //    console.log(window.num);
+
+    //->不带var的不能提前的声明,所以在44行之前输出num会报错,而且JS中当前行报错了,下面所有行代码都不会在执行了
+    //    console.log(num);//->Uncaught ReferenceError: num is not defined num这个变量不存在/没有定义
+    //    num = 12;
+    //    console.log(num);
+
+    //->只有在"全局作用域中",如果num前面没有带var,会认为num不是全局变量,而是window的一个属性
+    //    num = 12;//->window.num=12;
+    //    console.log(num);//->12 ->window.num
+</script>
+</body>
+</html>
